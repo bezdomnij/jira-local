@@ -20,9 +20,6 @@ public class DashBoardPage {
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
 
-    @FindBy(xpath="//a[starts-with(@id,'header-details-user')]")
-    private WebElement userLink;
-
     @FindBy(id="log_out")
     private WebElement logout;
 
@@ -30,14 +27,14 @@ public class DashBoardPage {
     private WebElement userProfile;
 
     public boolean checkLogout() {
-        WebDriverWait wait = new WebDriverWait(driver, 3);
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
-        userLink.click();
+        userIcon.click();
         return logout.isDisplayed();
     }
 
     public String checkUserName() {
-        WebDriverWait wait = new WebDriverWait(driver, 10 );
+        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
         userIcon.click();
         ViewProfilePage viewProfilePage = new ViewProfilePage();
