@@ -17,7 +17,7 @@ public class AppTest {
 
     @ParameterizedTest
     @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) throws InterruptedException {
+    public void testLoginSuccessful(String userId) {
         loginPage.loginSuccessful();
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
