@@ -17,29 +17,31 @@ public class DashBoardPage {
 
     WebDriver driver = WebDriverSingleton.getInstance();
 
-    @FindBy(xpath = "//img[starts-with(@alt, 'User profile')]")
+    @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
 
-    @FindBy(id = "log_out")
+    @FindBy(xpath="//a[starts-with(@id,'header-details-user')]")
+    private WebElement userLink;
+
+    @FindBy(id="log_out")
     private WebElement logout;
 
-    @FindBy(id = "view_profile")
+    @FindBy(id="view_profile")
     private WebElement userProfile;
 
     public boolean checkLogout() {
-        userIcon.click();
-        if (logout.isDisplayed()) return true;
-        return false;
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.visibilityOf(userIcon));
+        userLink.click();
+        return logout.isDisplayed();
     }
 
-    public String checkUserName() throws InterruptedException {
-        /*WebDriverWait wait = new WebDriverWait(driver, 10 );
-        wait.until(ExpectedConditions.visibilityOf(userIcon));*/
-        Thread.sleep(5000);
+    public String checkUserName() {
+        WebDriverWait wait = new WebDriverWait(driver, 10 );
+        wait.until(ExpectedConditions.visibilityOf(userIcon));
         userIcon.click();
-        userProfile.click();
+        System.out.println(userProfile);
         ViewProfilePage viewProfilePage = new ViewProfilePage();
-        String userNameTitle = viewProfilePage.getUserNameTitle();
-        return userNameTitle;
+        return viewProfilePage.getUserNameTitle();
     }
 }

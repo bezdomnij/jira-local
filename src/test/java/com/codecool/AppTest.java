@@ -2,11 +2,10 @@ package com.codecool;
 
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 /**
@@ -17,7 +16,7 @@ public class AppTest {
     DashBoardPage dashBoardPage =  new DashBoardPage();
 
     @ParameterizedTest
-    @CsvSource({"user10"})
+    @CsvSource({"User 10"})
     public void testLoginSuccessful(String userId) throws InterruptedException {
         loginPage.loginSuccessful();
         boolean isLogOutPresent = dashBoardPage.checkLogout();
