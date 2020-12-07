@@ -40,7 +40,6 @@ public class DashBoardPage {
         WebDriverWait wait = new WebDriverWait(driver, 10 );
         wait.until(ExpectedConditions.visibilityOf(userIcon));
         userIcon.click();
-        System.out.println(userProfile);
         ViewProfilePage viewProfilePage = new ViewProfilePage();
         return viewProfilePage.getUserNameTitle();
     }
