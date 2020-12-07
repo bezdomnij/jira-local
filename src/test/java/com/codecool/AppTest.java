@@ -4,8 +4,7 @@ import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
 /**
@@ -17,10 +16,10 @@ public class AppTest {
 
     @ParameterizedTest
     @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) throws InterruptedException {
+    public void testLoginSuccessful(String userId) {
         loginPage.loginSuccessful();
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
-        assertEquals(userId, userName);
+        assertTrue(isLogOutPresent && userId.equals(userName));
     }
 }
