@@ -74,5 +74,12 @@ public class AppTest {
         assertEquals(expected, projectName);
     }
 
+    @Test
+    public void searchProject(){
+        loginPage.loginSuccessful();
+        String actualProject = dashBoardPage.searchProject("COALA");
+        assertEquals("COALA Project", actualProject);
+    }
+
 
 }

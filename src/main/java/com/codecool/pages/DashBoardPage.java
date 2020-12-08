@@ -83,4 +83,13 @@ public class DashBoardPage {
         WebElement icon = driver.findElement(By.xpath(checkIconXpath));
         return icon.getAttribute("alt");
     }
+
+    public String searchProject(String projectName){
+        String locator = String.format("//a[contains(text(),'%s Project')]", projectName);
+        String url = String.format("https://jira.codecool.codecanvas.hu/projects/%s", projectName);
+        driver.get(url);
+        return driver.findElement(By.xpath(locator)).getText();
+    }
+
+
 }
