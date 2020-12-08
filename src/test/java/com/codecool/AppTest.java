@@ -28,14 +28,21 @@ public class AppTest {
     }
 
     @Test
-    public void testLoginFailedWithIncorrectPassword(){
+    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
         WebElement loginError = loginPage.loginFailed("incorrectPassword");
         assertNotNull(loginError);
     }
 
     @Test
-    public void testLoginFailedWithIncorrectUserName(){
+    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
         WebElement loginError = loginPage.loginFailed("incorrectUsername");
         assertNotNull(loginError);
     }
+
+    @Test
+    public void loginWrongPassword3Times() throws InterruptedException {
+        WebElement captcha = loginPage.loginWrongPassword3Times();
+        assertNotNull(captcha);
+    }
+
 }
