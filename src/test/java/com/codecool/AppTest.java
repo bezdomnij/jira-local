@@ -1,5 +1,6 @@
 package com.codecool;
 
+import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Test;
@@ -17,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 public class AppTest {
     LoginPage loginPage = new LoginPage();
     DashBoardPage dashBoardPage =  new DashBoardPage();
+    AlternateLogin alternateLogin = new AlternateLogin();
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -44,5 +46,15 @@ public class AppTest {
         WebElement captcha = loginPage.loginWrongPassword3Times();
         assertNotNull(captcha);
     }
+
+    @ParameterizedTest
+    @CsvSource({"User 10"})
+    public void testAlternateLoginSuccessful(String userId) {
+        alternateLogin.loginSuccessfulAlternateLoginPage();
+        boolean isLogOutPresent = dashBoardPage.checkLogout();
+        String userName = dashBoardPage.checkUserName();
+        assertTrue(isLogOutPresent && userId.equals(userName));
+    }
+
 
 }
