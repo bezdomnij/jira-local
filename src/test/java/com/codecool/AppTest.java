@@ -34,27 +34,27 @@ public class AppTest {
         WebElement loginError = loginPage.loginFailed("incorrectPassword");
         assertNotNull(loginError);
     }
-
-    @Test
-    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectUsername");
-        assertNotNull(loginError);
-    }
-
-    @Test
-    public void loginWrongPassword3Times() throws InterruptedException {
-        WebElement captcha = loginPage.loginWrongPassword3Times();
-        assertNotNull(captcha);
-    }
-
-    @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testAlternateLoginSuccessful(String userId) {
-        alternateLogin.loginSuccessfulAlternateLoginPage();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
-    }
+//
+//    @Test
+//    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectUsername");
+//        assertNotNull(loginError);
+//    }
+//
+//    @Test
+//    public void loginWrongPassword3Times() throws InterruptedException {
+//        WebElement captcha = loginPage.loginWrongPassword3Times();
+//        assertNotNull(captcha);
+//    }
+//
+//    @ParameterizedTest
+//    @CsvSource({"User 10"})
+//    public void testAlternateLoginSuccessful(String userId) {
+//        alternateLogin.loginSuccessfulAlternateLoginPage();
+//        boolean isLogOutPresent = dashBoardPage.checkLogout();
+//        String userName = dashBoardPage.checkUserName();
+//        assertTrue(isLogOutPresent && userId.equals(userName));
+//    }
 
 
 }

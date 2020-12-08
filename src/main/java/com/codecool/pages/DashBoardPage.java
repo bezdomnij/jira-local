@@ -9,13 +9,12 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class DashBoardPage {
+    WebDriver driver = WebDriverSingleton.getInstance();
 
     public DashBoardPage() {
         PageFactory.initElements(driver, this);
         //driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
     }
-
-    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
