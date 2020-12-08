@@ -29,12 +29,12 @@ public class AppTest {
         assertTrue(isLogOutPresent && userId.equals(userName));
     }
 
-    @Test
-    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectPassword");
-        assertNotNull(loginError);
-    }
-//
+//    @Test
+//    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectPassword");
+//        assertNotNull(loginError);
+//    }
+
 //    @Test
 //    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
 //        WebElement loginError = loginPage.loginFailed("incorrectUsername");
