@@ -6,6 +6,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
@@ -19,7 +20,7 @@ public class LoginPage {
 
     WebDriver driver = WebDriverSingleton.getInstance();
 
-    @FindBy(id="login-form-username")
+    @FindBy(id = "login-form-username")
     private WebElement username;
 
     @FindBy(id = "login-form-password")
@@ -28,10 +29,29 @@ public class LoginPage {
     @FindBy(id = "login")
     private WebElement loginButton;
 
+    @FindBy(id = "usernameerror")
+    private WebElement loginError;
+
+
     public void loginSuccessful() {
         driver.manage().window().maximize();
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));
         loginButton.click();
+    }
+
+    public WebElement loginFailed(String reason) {
+        driver.manage().window().maximize();
+        if (reason.equals("wrongUsername")) {
+            username.sendKeys("wrongUsername");
+            password.sendKeys(System.getenv("PASSWORD"));
+        } else {
+            username.sendKeys(System.getenv("USERNAME"));
+            password.sendKeys("wrongPassword");
+        }
+        loginButton.click();
+        WebDriverWait wait = new WebDriverWait(driver, 10);
+        wait.until(ExpectedConditions.visibilityOf(loginError));
+        return loginError;
     }
 }

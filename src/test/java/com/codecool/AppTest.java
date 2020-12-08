@@ -2,8 +2,12 @@ package com.codecool;
 
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
@@ -21,5 +25,17 @@ public class AppTest {
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
         assertTrue(isLogOutPresent && userId.equals(userName));
+    }
+
+    @Test
+    public void testLoginFailedWithIncorrectPassword(){
+        WebElement loginError = loginPage.loginFailed("incorrectPassword");
+        assertNotNull(loginError);
+    }
+
+    @Test
+    public void testLoginFailedWithIncorrectUserName(){
+        WebElement loginError = loginPage.loginFailed("incorrectUsername");
+        assertNotNull(loginError);
     }
 }
