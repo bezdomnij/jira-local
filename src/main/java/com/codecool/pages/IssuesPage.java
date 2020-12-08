@@ -80,7 +80,6 @@ public class IssuesPage {
 //        summary.sendKeys("randomString");
 //        typeField.sendKeys(Keys.TAB);
         Thread.sleep(2000);
-//        summaryField.sendKeys("Fuck that");
 
         WebElement result = driver.findElement(By.xpath("//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]"));
         return result.getText().endsWith(" has been successfully created.");
