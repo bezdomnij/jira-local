@@ -2,23 +2,19 @@ package com.codecool;
 
 import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.DashBoardPage;
+import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.openqa.selenium.WebElement;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
-
-/**
- * Unit test for simple App.
- */
 public class AppTest {
     LoginPage loginPage = new LoginPage();
     DashBoardPage dashBoardPage =  new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
+    IssuesPage issuesPage = new IssuesPage();
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -27,6 +23,16 @@ public class AppTest {
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
         assertTrue(isLogOutPresent && userId.equals(userName));
+    }
+
+    @Test
+    public void testIssuesCheckLoginStatus() {
+        assertTrue(issuesPage.checkLoginStatus());
+    }
+
+    @Test
+    public void testCreateIssue() {
+        assertNull(issuesPage.createIssue());
     }
 
 //    @Test
