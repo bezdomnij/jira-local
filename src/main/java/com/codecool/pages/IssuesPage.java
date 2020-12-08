@@ -58,29 +58,21 @@ public class IssuesPage {
 //        projectInputField.clear();
         projectInputField.clear();
         projectInputField.sendKeys("Main Testing Project (MTP)" + Keys.TAB);
-        wait.until(ExpectedConditions.visibilityOf(typeField));
-        System.out.println("megvan!");
-        Thread.sleep(1000);
-        WebElement lofax = driver.findElement(By.id("issuetype-field"));
-        lofax.click();
-        lofax.clear();
-        lofax.sendKeys("Task" + Keys.TAB);
-//        WebDriverWait wait3 = new WebDriverWait(driver, 3);
-//        typeField.sendKeys(Keys.BACK_SPACE);
-//        typeField.clear();
-//        typeField.sendKeys(Keys.TAB);
-//        Thread.sleep(2000);
-//        WebElement summary = driver.findElement(By.xpath("//input[@id='summary']"));
-//        wait3.until(ExpectedConditions.visibilityOf(summaryField));
+//        String press = Keys.chord(Keys.SHIFT,Keys.ENTER);
+//        WebElement typeField2 = driver.findElement(By.xpath("//input[@id='issuetype-field']"));
+//        wait.until(ExpectedConditions.visibilityOf(typeField2));
+//        System.out.println("megvan!");
+        Thread.sleep(2000);
+        WebElement element = driver.findElement(By.id("issuetype-field"));
+        element.click();
+        element.clear();
+        element.sendKeys("Task" + Keys.TAB);
         Thread.sleep(1000);
         WebElement sum = driver.findElement(By.xpath("//input[@id=\"summary\"]"));
         sum.click();
         sum.sendKeys("szoveg" + Keys.ENTER);
 
-//        summary.sendKeys("randomString");
-//        typeField.sendKeys(Keys.TAB);
         Thread.sleep(2000);
-//        summaryField.sendKeys("Fuck that");
 
         WebElement result = driver.findElement(By.xpath("//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]"));
         return result.getText().endsWith(" has been successfully created.");
