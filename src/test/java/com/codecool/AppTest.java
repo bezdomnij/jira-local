@@ -6,11 +6,11 @@ import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebElement;
 
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 /**
@@ -60,8 +60,18 @@ public class AppTest {
     @Test
     public void testLogout(){
         loginPage.loginSuccessful();
-        WebElement logout = dashBoardPage.logout();
-        Assertions.assertNotNull(logout);
+        WebElement logoutConfirmation = dashBoardPage.logout();
+        Assertions.assertNotNull(logoutConfirmation);
+    }
+
+    @ParameterizedTest
+    @CsvSource({"TOUCAN projekt, TOUCAN",
+                "COALA Project, COALA",
+                "JETI Project, JETI"})
+    public void testBrowseProject(String expected, String project){
+        loginPage.loginSuccessful();
+        String projectName = dashBoardPage.browseProject(project);
+        assertEquals(expected, projectName);
     }
 
 
