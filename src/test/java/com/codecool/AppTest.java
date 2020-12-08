@@ -3,6 +3,7 @@ package com.codecool;
 import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -54,6 +55,13 @@ public class AppTest {
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
         assertTrue(isLogOutPresent && userId.equals(userName));
+    }
+
+    @Test
+    public void testLogout(){
+        loginPage.loginSuccessful();
+        WebElement logout = dashBoardPage.logout();
+        Assertions.assertNotNull(logout);
     }
 
 

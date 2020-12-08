@@ -1,6 +1,7 @@
 package com.codecool.pages;
 
 import com.codecool.util.WebDriverSingleton;
+import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -26,6 +27,9 @@ public class DashBoardPage {
     @FindBy(id="view_profile")
     private WebElement userProfile;
 
+    @FindBy(xpath = "//h1[contains(text(),'Logout')]")
+    private WebElement logoutConfirmation;
+
     public boolean checkLogout() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
@@ -39,5 +43,17 @@ public class DashBoardPage {
         userIcon.click();
         ViewProfilePage viewProfilePage = new ViewProfilePage();
         return viewProfilePage.getUserNameTitle();
+    }
+
+    public WebElement logout(){
+        userIcon.click();
+        logout.click();
+        WebDriverWait wait = new WebDriverWait(driver, 5);
+        try {
+            wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
+        }catch (TimeoutException e){
+            return null;
+        }
+        return logoutConfirmation;
     }
 }
