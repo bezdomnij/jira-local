@@ -58,16 +58,16 @@ public class IssuesPage {
 //        projectInputField.clear();
         projectInputField.clear();
         projectInputField.sendKeys("Main Testing Project (MTP)" + Keys.TAB);
-//        String press = Keys.chord(Keys.SHIFT,Keys.ENTER);
-//        WebElement typeField2 = driver.findElement(By.xpath("//input[@id='issuetype-field']"));
+//        WebElement typeField2 = driver.findElement(By.xpath("\"//input[@id='issuetype-field']\""));
 //        wait.until(ExpectedConditions.visibilityOf(typeField2));
-//        System.out.println("megvan!");
+        System.out.println("megvan!");
         Thread.sleep(2000);
         WebElement element = driver.findElement(By.id("issuetype-field"));
         element.click();
         element.clear();
         element.sendKeys("Task" + Keys.TAB);
-        Thread.sleep(1000);
+
+        Thread.sleep(2000);
         WebElement sum = driver.findElement(By.xpath("//input[@id=\"summary\"]"));
         sum.click();
         sum.sendKeys("szoveg" + Keys.ENTER);
