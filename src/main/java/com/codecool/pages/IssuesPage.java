@@ -61,10 +61,10 @@ public class IssuesPage {
         wait.until(ExpectedConditions.visibilityOf(typeField));
         System.out.println("megvan!");
         Thread.sleep(1000);
-        WebElement lofax = driver.findElement(By.id("issuetype-field"));
-        lofax.click();
-        lofax.clear();
-        lofax.sendKeys("Task" + Keys.TAB);
+        WebElement element = driver.findElement(By.id("issuetype-field"));
+        element.click();
+        element.clear();
+        element.sendKeys("Task" + Keys.TAB);
 //        WebDriverWait wait3 = new WebDriverWait(driver, 3);
 //        typeField.sendKeys(Keys.BACK_SPACE);
 //        typeField.clear();
