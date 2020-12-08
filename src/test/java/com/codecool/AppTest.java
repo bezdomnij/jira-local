@@ -26,7 +26,7 @@ public class AppTest {
     }
 
     @Test
-    public void testIssuesCheckLoginStatus() {
+    public void testIssuesCheckLoginStatus() throws InterruptedException {
         assertTrue(issuesPage.checkLoginStatus());
     }
 
