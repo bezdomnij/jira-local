@@ -42,6 +42,13 @@ public class DashBoardPage {
     @FindBy(id = "project-filter-text")
     private WebElement projectFilterText;
 
+    @FindBy(id = "create_link")
+    private WebElement createIssue;
+
+    public WebElement getCreateIssueButton() {
+        return createIssue;
+    }
+
     public boolean checkLogout() {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
