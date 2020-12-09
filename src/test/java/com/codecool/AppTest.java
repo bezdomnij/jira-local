@@ -1,12 +1,12 @@
 package com.codecool;
 
 import com.codecool.pages.AlternateLogin;
+import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvFileSource;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebElement;
 
@@ -20,6 +20,7 @@ public class AppTest {
     LoginPage loginPage = new LoginPage();
     DashBoardPage dashBoardPage =  new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
+    CreateIssuePage createIssuePage = new CreateIssuePage();
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -81,5 +82,13 @@ public class AppTest {
         assertEquals("Main Testing Project", actualProject);
     }
 
+    @Test
+    public void createIssue() throws InterruptedException {
+        loginPage.loginSuccessful();
+        dashBoardPage.getCreateIssueButton().click();
+        createIssuePage.createNewIssue();
+        dashBoardPage.searchForIssueCreatedByMe("randomString");
+        dashBoardPage.deleteIssue("MTP");
 
+    }
 }
