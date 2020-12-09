@@ -24,24 +24,30 @@ public class CreateIssuePage {
         PageFactory.initElements(driver, this);
     }
 
+    WebDriver driver = WebDriverSingleton.getInstance();
+
+    @FindBy(id ="project-field")
+    private WebElement dropdown;
+
+    @FindBy(id ="issuetype-field" )
+    private WebElement dropDownIssue;
+
+    @FindBy(id = "summary")
+    private WebElement summary;
 
     public boolean createNewIssue() throws InterruptedException {
-
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.visibilityOf(dropDown));
-        dropDown.click();
-        dropDown.sendKeys("Main");
-        dropDown.sendKeys(Keys.ENTER);
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        dropdown.click();
+        dropdown.sendKeys("Main");
+        dropdown.sendKeys(Keys.ENTER);
 
         Thread.sleep(2000);
-        WebElement dropDownIssue = driver.findElement(By.xpath("//input[@id='issuetype-field']"));
         dropDownIssue.click();
         Thread.sleep(2000);
         dropDownIssue.sendKeys("Task");
         dropDownIssue.sendKeys(Keys.ENTER);
 
         Thread.sleep(2000);
-        WebElement summary = driver.findElement(By.xpath("//input[@id='summary']"));
         summary.click();
         Thread.sleep(2000);
         summary.sendKeys("randomString");

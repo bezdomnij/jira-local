@@ -76,7 +76,7 @@ public class AppTest {
     }
 
     @Test
-    public void searchProject(){
+    public void searchProject() throws InterruptedException {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
@@ -87,10 +87,8 @@ public class AppTest {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
         boolean result = createIssuePage.createNewIssue();
-//        createIssuePage.searchForIssue();
-//        createIssuePage.deleteIssue();
+        dashBoardPage.deleteIssue("MTP");
         assertTrue(result);
+
     }
-
-
 }
