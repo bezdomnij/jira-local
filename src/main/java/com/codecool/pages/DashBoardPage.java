@@ -1,10 +1,7 @@
 package com.codecool.pages;
 
 import com.codecool.util.WebDriverSingleton;
-import org.openqa.selenium.By;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -44,6 +41,16 @@ public class DashBoardPage {
 
     @FindBy(id = "create_link")
     private WebElement createIssue;
+
+    @FindBy(id="find_link")
+    private WebElement issuesButton;
+
+    @FindBy(id="filter_lnk_reported_lnk")
+    private WebElement reportedByMe;
+
+    @FindBy(id="searcher-query")
+    private WebElement searchQuery;
+
 
     public WebElement getCreateIssueButton() {
         return createIssue;
@@ -96,6 +103,23 @@ public class DashBoardPage {
         String url = String.format("https://jira.codecool.codecanvas.hu/projects/%s", urlEnds);
         driver.get(url);
         return driver.findElement(By.xpath(locator)).getText();
+    }
+
+    public void deleteIssue(String projectName) throws InterruptedException {
+        Thread.sleep(2000);
+        String locator = String.format("//a[starts-with(@data-issue-key,'%s')]", projectName);
+        driver.findElement(By.xpath(locator)).click();
+        driver.findElement(By.xpath("//a[@id='opsbar-operations_more']")).click();
+        driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
+        driver.findElement(By.xpath("//input[@id='delete-issue-submit']")).click();
+    }
+
+    public void searchForIssueCreatedByMe(String keyWord) {
+        issuesButton.click();
+        reportedByMe.click();
+        searchQuery.click();
+        searchQuery.sendKeys(keyWord);
+        searchQuery.sendKeys(Keys.ENTER);
     }
 
 

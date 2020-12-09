@@ -87,11 +87,8 @@ public class AppTest {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
         createIssuePage.createNewIssue();
-        createIssuePage.searchForIssue();
-        createIssuePage.deleteIssue();
-
+        dashBoardPage.searchForIssueCreatedByMe("randomString");
+        dashBoardPage.deleteIssue("MTP");
 
     }
-
-
 }
