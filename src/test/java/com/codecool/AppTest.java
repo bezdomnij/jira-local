@@ -77,8 +77,8 @@ public class AppTest {
     @Test
     public void searchProject(){
         loginPage.loginSuccessful();
-        String actualProject = dashBoardPage.searchProject("COALA");
-        assertEquals("COALA Project", actualProject);
+        String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
+        assertEquals("Main Testing Project", actualProject);
     }
 
 
