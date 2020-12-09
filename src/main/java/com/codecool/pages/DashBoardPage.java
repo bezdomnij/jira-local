@@ -84,11 +84,17 @@ public class DashBoardPage {
         return icon.getAttribute("alt");
     }
 
-    public String searchProject(String projectName, String urlEnds){
+    public String searchProject(String projectName, String urlEnds) {
         String locator = String.format("//a[contains(text(),'%s Project')]", projectName);
         String url = String.format("https://jira.codecool.codecanvas.hu/projects/%s", urlEnds);
         driver.get(url);
-        return driver.findElement(By.xpath(locator)).getText();
+
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
+
+        String text = driver.findElement(By.xpath(locator)).getText();
+        System.out.println(text);
+        return text;
     }
 
 

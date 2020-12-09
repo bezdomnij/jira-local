@@ -75,7 +75,7 @@ public class AppTest {
     }
 
     @Test
-    public void searchProject(){
+    public void searchProject() throws InterruptedException {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
