@@ -86,11 +86,10 @@ public class AppTest {
     public void createIssue() throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
-        createIssuePage.createNewIssue();
-        createIssuePage.searchForIssue();
-        createIssuePage.deleteIssue();
-
-
+        boolean result = createIssuePage.createNewIssue();
+//        createIssuePage.searchForIssue();
+//        createIssuePage.deleteIssue();
+        assertTrue(result);
     }
 
 
