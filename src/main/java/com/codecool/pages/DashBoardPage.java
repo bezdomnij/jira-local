@@ -13,7 +13,6 @@ public class DashBoardPage {
 
     public DashBoardPage() {
         PageFactory.initElements(driver, this);
-        //driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
     }
 
     WebDriver driver = WebDriverSingleton.getInstance();
@@ -128,11 +127,4 @@ public class DashBoardPage {
         searchQuery.sendKeys(Keys.ENTER);
     }
 
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
-
-        String text = driver.findElement(By.xpath(locator)).getText();
-        System.out.println(text);
-        return text;
-    }
 }

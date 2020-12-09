@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class CreateIssuePage {
     @FindBy(xpath = "//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]")
     private WebElement successMessage;
@@ -24,7 +26,7 @@ public class CreateIssuePage {
         PageFactory.initElements(driver, this);
     }
 
-    WebDriver driver = WebDriverSingleton.getInstance();
+//    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id ="project-field")
     private WebElement dropdown;
