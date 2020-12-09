@@ -42,11 +42,11 @@ public class AppTest {
         assertNotNull(loginError);
     }
 
-    @Test
+    /*@Test
     public void loginWrongPassword3Times() throws InterruptedException {
         WebElement captcha = loginPage.loginWrongPassword3Times();
         assertNotNull(captcha);
-    }
+    }*/
 
     @ParameterizedTest
     @CsvSource({"User 10"})
