@@ -86,9 +86,9 @@ public class AppTest {
     public void createIssue() throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
-        createIssuePage.createNewIssue();
-        dashBoardPage.searchForIssueCreatedByMe("randomString");
+        boolean result = createIssuePage.createNewIssue();
         dashBoardPage.deleteIssue("MTP");
+        assertTrue(result);
 
     }
 }

@@ -128,5 +128,11 @@ public class DashBoardPage {
         searchQuery.sendKeys(Keys.ENTER);
     }
 
+        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
 
+        String text = driver.findElement(By.xpath(locator)).getText();
+        System.out.println(text);
+        return text;
+    }
 }
