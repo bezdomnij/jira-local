@@ -39,18 +39,23 @@ public class CreateIssuePage {
         summary.sendKeys("randomString");
         summary.sendKeys(Keys.ENTER);
 
+        return true;
+    }
+
+    public void deleteIssue() throws InterruptedException {
+        Thread.sleep(2000);
+        driver.findElement(By.xpath("//a[starts-with(@data-issue-key,'MTP')]")).click();
+        driver.findElement(By.xpath("//a[@id='opsbar-operations_more']")).click();
+        driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
+        driver.findElement(By.xpath("//input[@id='delete-issue-submit']")).click();
+    }
+
+    public void searchForIssue() {
         driver.findElement(By.xpath("//a[@id='find_link']")).click();
         driver.findElement(By.xpath("//a[@id='filter_lnk_reported_lnk']")).click();
         WebElement searchQuery = driver.findElement(By.xpath("//input[@id='searcher-query']"));
         searchQuery.click();
         searchQuery.sendKeys("randomString");
         searchQuery.sendKeys(Keys.ENTER);
-
-        Thread.sleep(2000);
-        driver.findElement(By.xpath("//a[starts-with(@data-issue-key,'MTP')]")).click();
-        driver.findElement(By.xpath("//a[@id='opsbar-operations_more']")).click();
-        driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
-        driver.findElement(By.xpath("//input[@id='delete-issue-submit']")).click();
-        return true;
     }
 }
