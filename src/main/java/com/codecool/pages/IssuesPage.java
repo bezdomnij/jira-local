@@ -10,6 +10,8 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class IssuesPage {
     WebDriver driver = WebDriverSingleton.getInstance();
 //    DashBoardPage dashBoardPage = new DashBoardPage();
@@ -37,6 +39,9 @@ public class IssuesPage {
 
     @FindBy(xpath = "//*[@id=\"issuetype-single-select\"]//span[text()='More']")
     private WebElement getTypeDropdown;
+
+    @FindBy(xpath = "//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]")
+    private WebElement successMessage;
 
     @FindBy(xpath = "//*[@id=\"issuetype-single-select\"]//span[text()='More']")
     private WebElement typeLine;
@@ -72,10 +77,11 @@ public class IssuesPage {
         sum.click();
         sum.sendKeys("szoveg" + Keys.ENTER);
 
-        Thread.sleep(2000);
-
-        WebElement result = driver.findElement(By.xpath("//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]"));
-        return result.getText().endsWith(" has been successfully created.");
+//        Thread.sleep(2000);
+        WebDriverWait wait3 = new WebDriverWait(driver, 3);
+        wait3.until(ExpectedConditions.elementToBeClickable(successMessage));
+//        WebElement result = driver.findElement(By.xpath("//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]"));
+        return successMessage.getText().endsWith(" has been successfully created.");
     }
 
     public String createIssue() {
