@@ -14,12 +14,12 @@ import java.util.concurrent.TimeUnit;
 
 
 public class LoginPage {
+    WebDriver driver = WebDriverSingleton.getInstance();
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
     }
 
-    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id = "login-form-username")
     private WebElement username;
@@ -38,6 +38,7 @@ public class LoginPage {
 
 
     public void loginSuccessful() {
+        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
         driver.manage().window().maximize();
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));
