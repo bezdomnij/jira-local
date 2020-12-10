@@ -10,12 +10,11 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class DashBoardPage {
+    WebDriver driver = WebDriverSingleton.getInstance();
 
     public DashBoardPage() {
         PageFactory.initElements(driver, this);
     }
-
-    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
