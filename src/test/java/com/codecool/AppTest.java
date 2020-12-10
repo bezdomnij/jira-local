@@ -76,19 +76,21 @@ public class AppTest {
     }
 
     @Test
-    public void searchProject() throws InterruptedException {
+    public void searchProject() {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
     }
 
-    @Test
-    public void createIssue() throws InterruptedException {
+    @ParameterizedTest
+    @CsvSource({"TOUCAN, Task",
+            "COALA, Sub-task"})
+    public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
-        boolean result = createIssuePage.createNewIssue();
-        dashBoardPage.deleteIssue("MTP");
-        assertTrue(result);
-
+        String result = createIssuePage.createNewIssue(project, issueType, "randomString");
+        boolean resultActual = createIssuePage.compare(result, project);
+        dashBoardPage.deleteIssue(result);
+        assertTrue(resultActual);
     }
 }
