@@ -27,10 +27,10 @@ public class LoginPage {
     @FindBy(id = "login-form-password")
     private WebElement password;
 
-    @FindBy(id = "login")
+    @FindBy(id = "login-form-submit")
     private WebElement loginButton;
 
-    @FindBy(id = "usernameerror")
+    @FindBy(xpath = "//div/p[contains(text(),'Sorry, your username and password are incorrect - please try again.')]")
     private WebElement loginError;
 
     @FindBy(xpath = "//p[contains(text(),'Sorry, your userid is required to answer a CAPTCHA')]")
