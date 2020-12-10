@@ -17,12 +17,6 @@ public class IssuesPage {
 //    DashBoardPage dashBoardPage = new DashBoardPage();
     WebDriverWait wait = new WebDriverWait(driver, 3);
 
-    @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
-    private WebElement userIcon;
-
-    @FindBy(xpath = "//a[@title='Search for issues and view recent issues']")
-    private WebElement issueMenuItem;
-
     @FindBy(xpath = "//a[@id=\"create_link\"]")
     private WebElement createButton;
 
@@ -30,50 +24,29 @@ public class IssuesPage {
     private WebElement projectInputField;
 
     @FindBy(xpath = "//input[@id='issuetype-field']")
-    private WebElement typeField;
-
-    @FindBy(xpath = "//div[@class=\"jira-dialog-heading\"]//h2")
-    private WebElement createHeading;
+    private WebElement typeInputField;
 
     @FindBy(id = "summary")
     private WebElement summaryField;
 
-    @FindBy(xpath = "//*[@id=\"issuetype-single-select\"]//span[text()='More']")
-    private WebElement getTypeDropdown;
-
     @FindBy(xpath = "//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]")
     private WebElement successMessage;
 
-    @FindBy(xpath = "//*[@id=\"issuetype-single-select\"]//span[text()='More']")
-    private WebElement typeLine;
-
     public IssuesPage() {
         PageFactory.initElements(driver, this);
-        //driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
     }
 
-    // where am I
-    public boolean createIssue() throws InterruptedException {
-//        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-//        WebDriverWait wait = new WebDriverWait(driver, 3);
+    public boolean createIssue() {
         wait.until(ExpectedConditions.elementToBeClickable(createButton));
         createButton.click();
-//        WebDriverWait wait2 = new WebDriverWait(driver, 3);
-//        wait.until(ExpectedConditions.visibilityOf(createHeading));
-        wait.until(ExpectedConditions.visibilityOf(projectInputField));
-//        projectInputField.click(); // clear field
-//        projectInputField.clear();
-//        projectInputField.clear();
-        projectInputField.sendKeys("Main" + Keys.ENTER);
-//        WebElement typeField2 = driver.findElement(By.xpath("\"//input[@id='issuetype-field']\""));
-//        wait.until(ExpectedConditions.visibilityOf(typeField2));
-        System.out.println("megvan!");
-        Thread.sleep(2000);
-        WebElement element = driver.findElement(By.id("issuetype-field"));
-        element.click();
-        element.clear();
-        element.sendKeys("Task" + Keys.TAB);
 
+        wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
+        projectInputField.click(); // clear field
+        projectInputField.sendKeys("TOUCAN" + Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
+        typeInputField.click();
+        typeInputField.sendKeys("Improvement" + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(summaryField));
         summaryField.click();
