@@ -4,11 +4,13 @@ import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
-import org.openqa.selenium.WebElement;
+import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,7 +24,7 @@ public class AppTest {
     AlternateLogin alternateLogin = new AlternateLogin();
     CreateIssuePage createIssuePage = new CreateIssuePage();
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @CsvSource({"User 10"})
     public void testLoginSuccessful(String userId) {
         loginPage.loginSuccessful();
@@ -43,11 +45,11 @@ public class AppTest {
         assertNotNull(loginError);
     }
 
-    /*@Test
+    *//*@Test
     public void loginWrongPassword3Times() throws InterruptedException {
         WebElement captcha = loginPage.loginWrongPassword3Times();
         assertNotNull(captcha);
-    }*/
+    }*//*
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -80,9 +82,9 @@ public class AppTest {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }
+    }*/
 
-    @ParameterizedTest
+    /*@ParameterizedTest
     @CsvSource({"TOUCAN, Task",
             "COALA, Sub-task"})
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
@@ -92,5 +94,44 @@ public class AppTest {
         boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(result);
         assertTrue(resultActual);
+    }*/
+
+    /*@ParameterizedTest
+    @MethodSource("createStreamOfIssueType")
+    public void testCreateIssueWithIssueType(String project, String issueType) throws InterruptedException {
+        loginPage.loginSuccessful();
+        dashBoardPage.getCreateIssueButton().click();
+        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+        dashBoardPage.searchForIssueCreatedByMe(issueId);
+
+        //boolean resultActual = createIssuePage.compare(result, project);
+        dashBoardPage.deleteIssue(issueId);
+        assertTrue(resultActual);
+    }*/
+
+
+    @ParameterizedTest
+    @MethodSource("createListOfIssueType")
+    public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
+        loginPage.loginSuccessful();
+        dashBoardPage.getCreateIssueButton().click();
+        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+        String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
+        dashBoardPage.deleteIssueByIssueId(issueId);
+        assertEquals(issueType, actualIssueType);
+    }
+
+
+    private static List<Arguments> createListOfIssueType() {
+        List<String> issueTypes = Arrays.asList(" Story", "Task", "Bug", "Sub-task");
+        List<String> projects = Arrays.asList("TOUCAN", "COALA", "JETI");
+        List<Arguments> argumentsList = new ArrayList<>();
+
+        for (String project : projects) {
+            for (String type : issueTypes) {
+                argumentsList.add(Arguments.of(project, type));
+            }
+        }
+        return argumentsList;
     }
 }
