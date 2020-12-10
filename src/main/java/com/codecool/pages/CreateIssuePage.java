@@ -37,28 +37,36 @@ public class CreateIssuePage {
     @FindBy(id = "summary")
     private WebElement summary;
 
-    public boolean createNewIssue() throws InterruptedException {
+    public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
-        dropdown.sendKeys("Main");
+        dropdown.sendKeys(project);
         dropdown.sendKeys(Keys.ENTER);
 
         Thread.sleep(2000);
         dropDownIssue.click();
         Thread.sleep(2000);
-        dropDownIssue.sendKeys("Task");
+        dropDownIssue.sendKeys(issueType);
         dropDownIssue.sendKeys(Keys.ENTER);
 
         Thread.sleep(2000);
         summary.click();
         Thread.sleep(2000);
-        summary.sendKeys("randomString");
+        summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.ENTER);
 
         WebDriverWait wait3 = new WebDriverWait(driver, 3);
         wait3.until(ExpectedConditions.elementToBeClickable(successMessage));
+        String id = getCreatedIssueId(successMessage.getText());
+        System.out.println(successMessage.getText());
+        System.out.println(id);
 
-        return successMessage.getText().endsWith(" has been successfully created.");
+        return id;
+    }
+
+    private String getCreatedIssueId(String text) {
+        String [] words = text.split(" ");
+        return words[1];
     }
 
     public void deleteIssue() throws InterruptedException {
@@ -76,5 +84,10 @@ public class CreateIssuePage {
         searchQuery.click();
         searchQuery.sendKeys("randomString");
         searchQuery.sendKeys(Keys.ENTER);
+    }
+
+    public boolean compare(String result, String project) {
+        String [] resultArray = result.split("-");
+        return resultArray[0].equals(project);
     }
 }
