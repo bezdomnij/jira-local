@@ -14,7 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 public class IssuesPage {
     WebDriver driver = WebDriverSingleton.getInstance();
-//    DashBoardPage dashBoardPage = new DashBoardPage();
     WebDriverWait wait = new WebDriverWait(driver, 3);
 
     @FindBy(xpath = "//a[@id=\"create_link\"]")
@@ -42,11 +41,11 @@ public class IssuesPage {
 
         wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
         projectInputField.click(); // clear field
-        projectInputField.sendKeys("TOUCAN" + Keys.ENTER);
+        projectInputField.sendKeys("Main" + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
         typeInputField.click();
-        typeInputField.sendKeys("Improvement" + Keys.ENTER);
+        typeInputField.sendKeys("Bug" + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(summaryField));
         summaryField.click();
@@ -55,5 +54,4 @@ public class IssuesPage {
         wait.until(ExpectedConditions.elementToBeClickable(successMessage));
         return successMessage.getText().endsWith(" has been successfully created.");
     }
-
 }
