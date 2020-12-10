@@ -22,73 +22,75 @@ public class AppTest {
     AlternateLogin alternateLogin = new AlternateLogin();
     CreateIssuePage createIssuePage = new CreateIssuePage();
 
+//    @ParameterizedTest
+//    @CsvSource({"User 10"})
+//    public void testLoginSuccessful(String userId) {
+//        loginPage.loginSuccessful();
+//        boolean isLogOutPresent = dashBoardPage.checkLogout();
+//        String userName = dashBoardPage.checkUserName();
+//        assertTrue(isLogOutPresent && userId.equals(userName));
+//    }
+//
+//    @Test
+//    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectPassword");
+//        assertNotNull(loginError);
+//    }
+//
+//    @Test
+//    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectUsername");
+//        assertNotNull(loginError);
+//    }
+//
+//    /*@Test
+//    public void loginWrongPassword3Times() throws InterruptedException {
+//        WebElement captcha = loginPage.loginWrongPassword3Times();
+//        assertNotNull(captcha);
+//    }*/
+//
+//    @ParameterizedTest
+//    @CsvSource({"User 10"})
+//    public void testAlternateLoginSuccessful(String userId) {
+//        alternateLogin.loginSuccessfulAlternateLoginPage();
+//        boolean isLogOutPresent = dashBoardPage.checkLogout();
+//        String userName = dashBoardPage.checkUserName();
+//        assertTrue(isLogOutPresent && userId.equals(userName));
+//    }
+//
+//    @Test
+//    public void testLogout(){
+//        loginPage.loginSuccessful();
+//        WebElement logoutConfirmation = dashBoardPage.logout();
+//        Assertions.assertNotNull(logoutConfirmation);
+//    }
+//
+//    @ParameterizedTest
+//    @CsvSource({"TOUCAN projekt, TOUCAN",
+//                "COALA Project, COALA",
+//                "JETI Project, JETI"})
+//    public void testBrowseProject(String expected, String project){
+//        loginPage.loginSuccessful();
+//        String projectName = dashBoardPage.browseProject(project);
+//        assertEquals(expected, projectName);
+//    }
+//
+//    @Test
+//    public void searchProject() {
+//        loginPage.loginSuccessful();
+//        String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
+//        assertEquals("Main Testing Project", actualProject);
+//    }
+
     @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) {
-        loginPage.loginSuccessful();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
-    }
-
-    @Test
-    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectPassword");
-        assertNotNull(loginError);
-    }
-
-    @Test
-    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectUsername");
-        assertNotNull(loginError);
-    }
-
-    /*@Test
-    public void loginWrongPassword3Times() throws InterruptedException {
-        WebElement captcha = loginPage.loginWrongPassword3Times();
-        assertNotNull(captcha);
-    }*/
-
-    @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testAlternateLoginSuccessful(String userId) {
-        alternateLogin.loginSuccessfulAlternateLoginPage();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
-    }
-
-    @Test
-    public void testLogout(){
-        loginPage.loginSuccessful();
-        WebElement logoutConfirmation = dashBoardPage.logout();
-        Assertions.assertNotNull(logoutConfirmation);
-    }
-
-    @ParameterizedTest
-    @CsvSource({"TOUCAN projekt, TOUCAN",
-                "COALA Project, COALA",
-                "JETI Project, JETI"})
-    public void testBrowseProject(String expected, String project){
-        loginPage.loginSuccessful();
-        String projectName = dashBoardPage.browseProject(project);
-        assertEquals(expected, projectName);
-    }
-
-    @Test
-    public void searchProject() throws InterruptedException {
-        loginPage.loginSuccessful();
-        String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
-        assertEquals("Main Testing Project", actualProject);
-    }
-
-    @Test
-    public void createIssue() throws InterruptedException {
+    @CsvSource({"TOUCAN, Task",
+            "COALA, Sub-task"})
+    public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
-        boolean result = createIssuePage.createNewIssue();
-        dashBoardPage.deleteIssue("MTP");
-        assertTrue(result);
-
+        String result = createIssuePage.createNewIssue(project, issueType, "randomString");
+        boolean resultActual = createIssuePage.compare(result, project);
+        dashBoardPage.deleteIssue(result);
+        assertTrue(resultActual);
     }
 }
