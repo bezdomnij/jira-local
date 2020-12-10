@@ -127,4 +127,19 @@ public class DashBoardPage {
         searchQuery.sendKeys(Keys.ENTER);
     }
 
+    public String  getIssueTypeByIssueId(String issueId) {
+        String url = String.format("https://jira.codecool.codecanvas.hu/browse/%s", issueId);
+        driver.get(url);
+        return driver.findElement(By.id("type-val")).getText();
+    }
+
+    public void deleteIssueByIssueId(String issueId) {
+        String url = String.format("https://jira.codecool.codecanvas.hu/browse/%s", issueId);
+        driver.get(url);
+        driver.findElement(By.id("opsbar-operations_more")).click();
+        driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
+        WebDriverWait wait = new WebDriverWait(driver,4);
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
+        driver.findElement(By.id("delete-issue-submit")).click();
+    }
 }
