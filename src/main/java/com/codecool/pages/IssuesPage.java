@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 public class IssuesPage {
     WebDriver driver = WebDriverSingleton.getInstance();
 //    DashBoardPage dashBoardPage = new DashBoardPage();
+    WebDriverWait wait = new WebDriverWait(driver, 3);
 
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
@@ -52,17 +53,18 @@ public class IssuesPage {
     }
 
     // where am I
-    public boolean checkLoginStatus() throws InterruptedException {
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-        WebDriverWait wait = new WebDriverWait(driver, 3);
-        wait.until(ExpectedConditions.visibilityOf(createButton));
+    public boolean createIssue() throws InterruptedException {
+//        driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+//        WebDriverWait wait = new WebDriverWait(driver, 3);
+        wait.until(ExpectedConditions.elementToBeClickable(createButton));
         createButton.click();
-        WebDriverWait wait2 = new WebDriverWait(driver, 3);
-        wait2.until(ExpectedConditions.visibilityOf(createHeading));
-        projectInputField.click(); // clear field
+//        WebDriverWait wait2 = new WebDriverWait(driver, 3);
+//        wait.until(ExpectedConditions.visibilityOf(createHeading));
+        wait.until(ExpectedConditions.visibilityOf(projectInputField));
+//        projectInputField.click(); // clear field
 //        projectInputField.clear();
-        projectInputField.clear();
-        projectInputField.sendKeys("Main Testing Project (MTP)" + Keys.TAB);
+//        projectInputField.clear();
+        projectInputField.sendKeys("Main" + Keys.ENTER);
 //        WebElement typeField2 = driver.findElement(By.xpath("\"//input[@id='issuetype-field']\""));
 //        wait.until(ExpectedConditions.visibilityOf(typeField2));
         System.out.println("megvan!");
@@ -72,23 +74,13 @@ public class IssuesPage {
         element.clear();
         element.sendKeys("Task" + Keys.TAB);
 
-        Thread.sleep(2000);
-        WebElement sum = driver.findElement(By.xpath("//input[@id=\"summary\"]"));
-        sum.click();
-        sum.sendKeys("szoveg" + Keys.ENTER);
 
-//        Thread.sleep(2000);
-        WebDriverWait wait3 = new WebDriverWait(driver, 3);
-        wait3.until(ExpectedConditions.elementToBeClickable(successMessage));
-//        WebElement result = driver.findElement(By.xpath("//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]"));
+        wait.until(ExpectedConditions.elementToBeClickable(summaryField));
+        summaryField.click();
+        summaryField.sendKeys("szoveg" + Keys.ENTER);
+
+        wait.until(ExpectedConditions.elementToBeClickable(successMessage));
         return successMessage.getText().endsWith(" has been successfully created.");
     }
 
-    public String createIssue() {
-//        WebDriverWait wait = new WebDriverWait(driver, 3);
-//        wait.until(ExpectedConditions.visibilityOf(createButton));
-        System.out.println(createButton);
-//        createButton.click();
-        return null;
-    }
 }

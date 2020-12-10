@@ -16,23 +16,24 @@ public class AppTest {
     AlternateLogin alternateLogin = new AlternateLogin();
     IssuesPage issuesPage = new IssuesPage();
 
-    @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) {
+//    @ParameterizedTest
+//    @CsvSource({"User 10"})
+//    public void testLoginSuccessful(String userId) {
+//        loginPage.loginSuccessful();
+//        boolean isLogOutPresent = dashBoardPage.checkLogout();
+//        String userName = dashBoardPage.checkUserName();
+//        assertTrue(isLogOutPresent && userId.equals(userName));
+//    }
+
+//    @Test
+//    public void testIssuesCheckLoginStatus() throws InterruptedException {
+//        assertTrue(issuesPage.checkLoginStatus());
+//    }
+
+    @Test
+    public void testCreateIssue() throws InterruptedException {
         loginPage.loginSuccessful();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
-    }
-
-    @Test
-    public void testIssuesCheckLoginStatus() throws InterruptedException {
-        assertTrue(issuesPage.checkLoginStatus());
-    }
-
-    @Test
-    public void testCreateIssue() {
-        assertNull(issuesPage.createIssue());
+        assertTrue(issuesPage.createIssue());
     }
 
 //    @Test
