@@ -6,6 +6,7 @@ import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.ArrayList;
@@ -85,8 +86,7 @@ public class AppTest {
     }*/
 
     /*@ParameterizedTest
-    @CsvSource({"TOUCAN, Task",
-            "COALA, Sub-task"})
+    @CsvSource({"TOUCAN, Task"})
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();

@@ -34,8 +34,10 @@ public class CreateIssuePage {
     @FindBy(id ="issuetype-field" )
     private WebElement dropDownIssue;
 
+
     @FindBy(id = "summary")
     private WebElement summary;
+
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -44,10 +46,11 @@ public class CreateIssuePage {
         dropdown.sendKeys(Keys.ENTER);
 
         Thread.sleep(2000);
+
         dropDownIssue.click();
         Thread.sleep(2000);
-        dropDownIssue.sendKeys(issueType);
-        dropDownIssue.sendKeys(Keys.ENTER);
+
+        dropDownIssue.sendKeys(issueType + Keys.ENTER);
 
         Thread.sleep(2000);
         summary.click();
