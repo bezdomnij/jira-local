@@ -4,6 +4,7 @@ import com.codecool.util.WebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -15,7 +16,7 @@ public class DashBoardPage {
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public DashBoardPage() {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
@@ -71,6 +72,7 @@ public class DashBoardPage {
         return viewProfilePage.getUserNameTitle();
     }
 
+
     public WebElement logout(){
         try {
             wait.until(ExpectedConditions.visibilityOf(userIcon));
@@ -82,6 +84,7 @@ public class DashBoardPage {
 
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
+
         }catch (TimeoutException e){
             return null;
         }
