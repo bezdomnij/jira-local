@@ -4,6 +4,7 @@ import com.codecool.util.WebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
@@ -12,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 public class DashBoardPage {
 
     public DashBoardPage() {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
     WebDriver driver = WebDriverSingleton.getInstance();
