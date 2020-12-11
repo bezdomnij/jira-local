@@ -24,6 +24,7 @@ public class AlternateLogin {
     private WebElement loginButton;
 
     public void loginSuccessfulAlternateLoginPage() {
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
         driver.manage().window().maximize();
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));
