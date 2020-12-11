@@ -15,6 +15,7 @@ import java.util.concurrent.TimeUnit;
 
 public class LoginPage {
     WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public LoginPage() {
         PageFactory.initElements(driver, this);
@@ -27,7 +28,8 @@ public class LoginPage {
     @FindBy(id = "login-form-password")
     private WebElement password;
 
-    @FindBy(id = "login-form-submit")
+//    @FindBy(id = "login-form-submit")
+    @FindBy(id = "login")
     private WebElement loginButton;
 
     @FindBy(xpath = "//div/p[contains(text(),'Sorry, your username and password are incorrect - please try again.')]")
@@ -38,8 +40,9 @@ public class LoginPage {
 
 
     public void loginSuccessful() {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-        driver.manage().window().maximize();
+//        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+//        driver.manage().window().maximize();
+        wait.until(ExpectedConditions.visibilityOf(username));
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));
         loginButton.click();
