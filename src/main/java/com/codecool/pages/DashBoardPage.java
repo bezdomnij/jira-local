@@ -71,7 +71,7 @@ public class DashBoardPage {
         return viewProfilePage.getUserNameTitle();
     }
 
-    public WebElement logout(){
+    public WebElement logout()  {
         userIcon.click();
         logout.click();
         WebDriverWait wait = new WebDriverWait(driver, 5);

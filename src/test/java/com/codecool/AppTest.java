@@ -4,9 +4,9 @@ import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
-import org.junit.Test;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
@@ -41,8 +41,8 @@ public class AppTest {
 
     //not working if I comment out loginPage.loginSuccessful(); from the code
     @Test
-    public void testLogout(){
-        loginPage.loginSuccessful();
+    public void testLogout() {
+        //loginPage.loginSuccessful();
         WebElement logoutConfirmation = dashBoardPage.logout();
         Assertions.assertNotNull(logoutConfirmation);
     }

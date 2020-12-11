@@ -43,6 +43,11 @@ public class LoginPage {
         driver.manage().window().maximize();
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));
+        /*try {
+            loginButton.click();
+        }catch (Exception e){
+            driver.findElement(By.id("login"));
+        }*/
         loginButton.click();
     }
 
