@@ -76,6 +76,7 @@ public class DashBoardPage {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
+
         }catch (TimeoutException e){
             return null;
         }

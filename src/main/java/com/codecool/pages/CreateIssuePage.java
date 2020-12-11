@@ -1,19 +1,18 @@
 package com.codecool.pages;
 
 import com.codecool.util.WebDriverSingleton;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage {
-    @FindBy(xpath = "//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]")
+    //div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')];
+    @FindBy(xpath = "//div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')]")
     private WebElement successMessage;
 
     @FindBy(xpath = "//input[@id='project-field']")
@@ -23,19 +22,21 @@ public class CreateIssuePage {
     LoginPage loginPage = new LoginPage();
 
     public CreateIssuePage() {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
 //    WebDriver driver = WebDriverSingleton.getInstance();
 
-    @FindBy(id ="project-field")
+    @FindBy(id = "project-field")
     private WebElement dropdown;
 
-    @FindBy(id ="issuetype-field" )
+    @FindBy(id = "issuetype-field")
     private WebElement dropDownIssue;
 
     @FindBy(id = "summary")
     private WebElement summary;
+
+    private WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
@@ -43,20 +44,31 @@ public class CreateIssuePage {
         dropdown.sendKeys(project);
         dropdown.sendKeys(Keys.ENTER);
 
-        Thread.sleep(2000);
+        try {
+            wait.until(ExpectedConditions.stalenessOf(dropDownIssue));
+        } catch (Exception e) {
+            System.out.println("dropdown issue exception caught");
+        }
+        wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
-        Thread.sleep(2000);
-        dropDownIssue.sendKeys(issueType);
-        dropDownIssue.sendKeys(Keys.ENTER);
+        dropDownIssue.sendKeys(issueType + Keys.ENTER);
 
-        Thread.sleep(2000);
-        summary.click();
-        Thread.sleep(2000);
+        /*try {
+            wait.until(ExpectedConditions.stalenessOf(summary));
+        } catch (Exception e) {
+            System.out.println("summary exception caught");
+        }
+        wait.until(ExpectedConditions.elementToBeClickable(summary));*/
+
+        // testing usability of other way to ignore StaleElementReferenceException
+        wait.ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.elementToBeClickable(summary));
+
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.ENTER);
 
-        WebDriverWait wait3 = new WebDriverWait(driver, 3);
-        wait3.until(ExpectedConditions.elementToBeClickable(successMessage));
+
+        wait.until(ExpectedConditions.elementToBeClickable(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);
@@ -65,7 +77,7 @@ public class CreateIssuePage {
     }
 
     private String getCreatedIssueId(String text) {
-        String [] words = text.split(" ");
+        String[] words = text.split(" ");
         return words[1];
     }
 
@@ -87,7 +99,7 @@ public class CreateIssuePage {
     }
 
     public boolean compare(String result, String project) {
-        String [] resultArray = result.split("-");
+        String[] resultArray = result.split("-");
         return resultArray[0].equals(project);
     }
 }

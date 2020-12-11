@@ -123,8 +123,8 @@ public class AppTest {
 
 
     private static List<Arguments> createListOfIssueType() {
-        List<String> issueTypes = Arrays.asList(" Story", "Task", "Bug", "Sub-task");
-        List<String> projects = Arrays.asList("TOUCAN", "COALA", "JETI");
+        List<String> issueTypes = Arrays.asList("Story");
+        List<String> projects = Arrays.asList("TOUCAN");
         List<Arguments> argumentsList = new ArrayList<>();
 
         for (String project : projects) {
