@@ -18,8 +18,9 @@ public class AppTest {
     LoginPage loginPage = new LoginPage();
     DashBoardPage dashBoardPage =  new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
-
     CreateIssuePage createIssuePage = new CreateIssuePage();
+    IssuesPage issuesPage = new IssuesPage();
+
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -30,13 +31,11 @@ public class AppTest {
         assertTrue(isLogOutPresent && userId.equals(userName));
     }
 
-    IssuesPage issuesPage = new IssuesPage();
-
-    @Test
-    public void testCreateIssue() {
-        loginPage.loginSuccessful();
-        assertTrue(issuesPage.createIssue());
-    }
+//    @Test
+//    public void testCreateIssue() {
+//        loginPage.loginSuccessful();
+//        assertTrue(issuesPage.createIssue());
+//    }
 
     @Test
     public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
