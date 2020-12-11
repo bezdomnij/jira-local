@@ -1,23 +1,16 @@
 package com.codecool;
 
-import com.codecool.pages.AlternateLogin;
-import com.codecool.pages.CreateIssuePage;
-import com.codecool.pages.DashBoardPage;
-import com.codecool.pages.IssuesPage;
-import com.codecool.pages.LoginPage;
+import com.codecool.pages.*;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
-
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
-
+import org.openqa.selenium.WebElement;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
-import org.junit.jupiter.params.provider.CsvSource;
-
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -28,7 +21,7 @@ public class AppTest {
 
     CreateIssuePage createIssuePage = new CreateIssuePage();
 
-    /*@ParameterizedTest
+    @ParameterizedTest
     @CsvSource({"User 10"})
     public void testLoginSuccessful(String userId) {
         loginPage.loginSuccessful();
@@ -39,50 +32,38 @@ public class AppTest {
 
     IssuesPage issuesPage = new IssuesPage();
 
-//    @Test
-//    public void testIssuesCheckLoginStatus() throws InterruptedException {
-//        assertTrue(issuesPage.checkLoginStatus());
-//    }
-
     @Test
-    public void testCreateIssue() throws InterruptedException {
+    public void testCreateIssue() {
         loginPage.loginSuccessful();
         assertTrue(issuesPage.createIssue());
     }
 
+    @Test
+    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
+        WebElement loginError = loginPage.loginFailed("incorrectPassword");
+        assertNotNull(loginError);
+    }
 
-    *//*@Test
+    @Test
+    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
+        WebElement loginError = loginPage.loginFailed("incorrectUsername");
+        assertNotNull(loginError);
+    }
+
+    @Test
     public void loginWrongPassword3Times() throws InterruptedException {
         WebElement captcha = loginPage.loginWrongPassword3Times();
         assertNotNull(captcha);
-    }*//*
+    }
 
-//    @Test
-//    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
-//        WebElement loginError = loginPage.loginFailed("incorrectPassword");
-//        assertNotNull(loginError);
-//    }
-
-//    @Test
-//    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
-//        WebElement loginError = loginPage.loginFailed("incorrectUsername");
-//        assertNotNull(loginError);
-//    }
-//
-//    @Test
-//    public void loginWrongPassword3Times() throws InterruptedException {
-//        WebElement captcha = loginPage.loginWrongPassword3Times();
-//        assertNotNull(captcha);
-//    }
-//
-//    @ParameterizedTest
-//    @CsvSource({"User 10"})
-//    public void testAlternateLoginSuccessful(String userId) {
-//        alternateLogin.loginSuccessfulAlternateLoginPage();
-//        boolean isLogOutPresent = dashBoardPage.checkLogout();
-//        String userName = dashBoardPage.checkUserName();
-//        assertTrue(isLogOutPresent && userId.equals(userName));
-//    }
+    @ParameterizedTest
+    @CsvSource({"User 10"})
+    public void testAlternateLoginSuccessful(String userId) {
+        alternateLogin.loginSuccessfulAlternateLoginPage();
+        boolean isLogOutPresent = dashBoardPage.checkLogout();
+        String userName = dashBoardPage.checkUserName();
+        assertTrue(isLogOutPresent && userId.equals(userName));
+    }
 
     @Test
     public void testLogout(){
@@ -106,9 +87,9 @@ public class AppTest {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }*/
+    }
 
-    /*@ParameterizedTest
+    @ParameterizedTest
     @CsvSource({"TOUCAN, Task"})
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
@@ -117,21 +98,7 @@ public class AppTest {
         boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(result);
         assertTrue(resultActual);
-    }*/
-
-    /*@ParameterizedTest
-    @MethodSource("createStreamOfIssueType")
-    public void testCreateIssueWithIssueType(String project, String issueType) throws InterruptedException {
-        loginPage.loginSuccessful();
-        dashBoardPage.getCreateIssueButton().click();
-        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
-        dashBoardPage.searchForIssueCreatedByMe(issueId);
-
-        //boolean resultActual = createIssuePage.compare(result, project);
-        dashBoardPage.deleteIssue(issueId);
-        assertTrue(resultActual);
-    }*/
-
+    }
 
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
