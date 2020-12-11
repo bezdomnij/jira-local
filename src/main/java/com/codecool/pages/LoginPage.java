@@ -12,16 +12,18 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.concurrent.TimeUnit;
+import java.util.concurrent.TimeoutException;
 
 
 public class LoginPage {
+    WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
 
 
     public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 
-    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id = "login-form-username")
     private WebElement username;
@@ -29,7 +31,7 @@ public class LoginPage {
     @FindBy(id = "login-form-password")
     private WebElement password;
 
-    @FindBy(id = "login-form-submit")
+    @FindBy(id = "login")
     private WebElement loginButton;
 
     @FindBy(xpath = "//div/p[contains(text(),'Sorry, your username and password are incorrect - please try again.')]")
@@ -40,18 +42,26 @@ public class LoginPage {
 
 
     public void loginSuccessful() {
+
+        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
         driver.manage().window().maximize();
-        username.sendKeys(System.getenv("USERNAME"));
-        password.sendKeys(System.getenv("PASSWORD"));
-        /*try {
+        try {
+            wait.until(ExpectedConditions.visibilityOf(username));
+            username.sendKeys(System.getenv("USERNAME"));
+            password.sendKeys(System.getenv("PASSWORD"));
+          /*try {
             loginButton.click();
         }catch (Exception e){
             driver.findElement(By.id("login"));
         }*/
-        loginButton.click();
+            loginButton.click();
+        } catch (Exception e ) {
+            System.out.println("I'm in already");
+        }
     }
 
     public WebElement loginFailed(String reason) throws InterruptedException {
+        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");

@@ -1,20 +1,25 @@
-package com.codecool;
+package com.codecool;//enyem
 
 import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
+import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -24,13 +29,13 @@ import static org.junit.jupiter.api.Assertions.*;
  */
 
 
-
 public class AppTest {
 
 
     LoginPage loginPage = new LoginPage();
-    DashBoardPage dashBoardPage =  new DashBoardPage();
+    DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
+    IssuesPage issuesPage = new IssuesPage();
     CreateIssuePage createIssuePage = new CreateIssuePage();
 
 
@@ -83,7 +88,6 @@ public class AppTest {
         dashBoardPage.getCreateIssueButton().click();
         String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
         dashBoardPage.searchForIssueCreatedByMe(issueId);
-
         //boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(issueId);
         assertTrue(resultActual);
@@ -114,4 +118,5 @@ public class AppTest {
         }
         return argumentsList;
     }
+
 }

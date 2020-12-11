@@ -9,7 +9,7 @@ import org.openqa.selenium.support.PageFactory;
 public class AlternateLogin {
     public AlternateLogin() {
         PageFactory.initElements(driver, this);
-        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
+//        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
     }
 
     WebDriver driver = WebDriverSingleton.getInstance();
@@ -24,6 +24,7 @@ public class AlternateLogin {
     private WebElement loginButton;
 
     public void loginSuccessfulAlternateLoginPage() {
+        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
         driver.manage().window().maximize();
         username.sendKeys(System.getenv("USERNAME"));
         password.sendKeys(System.getenv("PASSWORD"));

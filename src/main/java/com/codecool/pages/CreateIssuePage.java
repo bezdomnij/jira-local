@@ -33,6 +33,7 @@ public class CreateIssuePage {
     @FindBy(id = "issuetype-field")
     private WebElement dropDownIssue;
 
+
     @FindBy(id = "summary")
     private WebElement summary;
 
@@ -43,6 +44,7 @@ public class CreateIssuePage {
         dropdown.click();
         dropdown.sendKeys(project);
         dropdown.sendKeys(Keys.ENTER);
+
 
         try {
             wait.until(ExpectedConditions.stalenessOf(dropDownIssue));

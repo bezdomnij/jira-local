@@ -4,7 +4,10 @@ import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
-import org.junit.Test;
+
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.Test;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -21,11 +24,11 @@ import static org.junit.jupiter.api.Assertions.*;
 public class LoginTest {
 
     LoginPage loginPage = new LoginPage();
-    DashBoardPage dashBoardPage =  new DashBoardPage();
+
+    private static final DashBoardPage dashBoardPage =  new DashBoardPage();
+
     AlternateLogin alternateLogin = new AlternateLogin();
     CreateIssuePage createIssuePage = new CreateIssuePage();
-
-
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -54,6 +57,7 @@ public class LoginTest {
         assertNotNull(captcha);
     }*/
 
+
     @ParameterizedTest
     @CsvSource({"User 10"})
     public void testAlternateLoginSuccessful(String userId) {
@@ -62,4 +66,11 @@ public class LoginTest {
         String userName = dashBoardPage.checkUserName();
         assertTrue(isLogOutPresent && userId.equals(userName));
     }
+
+
+    @AfterAll
+    public static void backToBase() {
+        dashBoardPage.logout();
+    }
 }
+
