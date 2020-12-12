@@ -8,12 +8,16 @@ import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+
+import com.codecool.pages.*;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -46,6 +50,7 @@ public class AppTest {
     }
 
     //not working if I comment out loginPage.loginSuccessful(); from the code
+
     @Test
     public void testLogout() {
         //loginPage.loginSuccessful();
@@ -68,11 +73,13 @@ public class AppTest {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }*/
+    }
+
 
     /*@ParameterizedTest
     @CsvSource({"TOUCAN, Task",
             "COALA, Sub-task"})
+
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
@@ -80,6 +87,7 @@ public class AppTest {
         boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(result);
         assertTrue(resultActual);
+
     }*/
 
     /*@ParameterizedTest

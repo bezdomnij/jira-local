@@ -35,23 +35,36 @@ public class IssuesPage {
         PageFactory.initElements(driver, this);
     }
 
-    public boolean createIssue() {
+    public String createIssue(String project, String issueType, String text) {
         wait.until(ExpectedConditions.elementToBeClickable(createButton));
         createButton.click();
 
         wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
         projectInputField.click(); // clear field
-        projectInputField.sendKeys("Main" + Keys.ENTER);
+        projectInputField.sendKeys(project + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
         typeInputField.click();
-        typeInputField.sendKeys("Bug" + Keys.ENTER);
+        typeInputField.sendKeys(issueType + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(summaryField));
         summaryField.click();
-        summaryField.sendKeys("szoveg" + Keys.ENTER);
+        summaryField.sendKeys(text + Keys.ENTER);
 
         wait.until(ExpectedConditions.elementToBeClickable(successMessage));
-        return successMessage.getText().endsWith(" has been successfully created.");
+
+        String id = getCreatedIssueId(successMessage.getText());
+        System.out.println(successMessage.getText());
+        System.out.println(id);
+
+        return id;
+    }
+    public boolean compare(String result, String project) {
+        String [] resultArray = result.split("-");
+        return resultArray[0].equals(project);
+    }
+    private String getCreatedIssueId(String text) {
+        String [] words = text.split(" ");
+        return words[1];
     }
 }

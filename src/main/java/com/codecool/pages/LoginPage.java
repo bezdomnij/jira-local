@@ -19,7 +19,6 @@ public class LoginPage {
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
-
     public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
@@ -31,6 +30,7 @@ public class LoginPage {
     @FindBy(id = "login-form-password")
     private WebElement password;
 
+//    @FindBy(id = "login-form-submit")
     @FindBy(id = "login")
     private WebElement loginButton;
 
@@ -58,6 +58,7 @@ public class LoginPage {
         } catch (Exception e ) {
             System.out.println("I'm in already");
         }
+
     }
 
     public WebElement loginFailed(String reason) throws InterruptedException {

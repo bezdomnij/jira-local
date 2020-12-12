@@ -20,6 +20,9 @@ public class CreateIssuePage {
 
     WebDriver driver = WebDriverSingleton.getInstance();
     LoginPage loginPage = new LoginPage();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+
+    private DashBoardPage dashBoardPage =new DashBoardPage();
 
     public CreateIssuePage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
@@ -40,6 +43,8 @@ public class CreateIssuePage {
     private WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
+        wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
+        dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
         dropdown.sendKeys(project);
