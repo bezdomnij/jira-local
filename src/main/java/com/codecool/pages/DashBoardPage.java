@@ -125,7 +125,8 @@ public class DashBoardPage {
         driver.findElement(By.xpath(locator)).click();
         driver.findElement(By.xpath("//a[@id='opsbar-operations_more']")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
-        driver.findElement(By.xpath("//input[@id='delete-issue-submit']")).click();
+        wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
+        driver.findElement(By.id("delete-issue-submit")).click();
     }
 
     public void searchForIssueCreatedByMe(String keyWord) {

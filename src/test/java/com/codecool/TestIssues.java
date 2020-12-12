@@ -5,6 +5,7 @@ import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -13,13 +14,13 @@ import org.junit.jupiter.params.provider.CsvSource;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestIssues {
-    private final LoginPage loginPage = new LoginPage();
+    private static final LoginPage loginPage = new LoginPage();
     private final DashBoardPage dashBoardPage = new DashBoardPage();
 //    private final CreateIssuePage createIssuePage = new CreateIssuePage();
     private final IssuesPage issuesPage = new IssuesPage();
 
-    @BeforeEach
-    void login() {
+    @BeforeAll
+    public static void login() {
         loginPage.loginSuccessful();
     }
     

@@ -50,7 +50,6 @@ public class AppTest {
     }
 
     //not working if I comment out loginPage.loginSuccessful(); from the code
-
     @Test
     public void testLogout() {
         //loginPage.loginSuccessful();
@@ -106,8 +105,8 @@ public class AppTest {
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
-        //loginPage.loginSuccessful();
-        dashBoardPage.getCreateIssueButton().click();
+//        loginPage.loginSuccessful();
+//        dashBoardPage.getCreateIssueButton().click();
         String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         dashBoardPage.deleteIssueByIssueId(issueId);
