@@ -121,5 +121,5 @@ buildNumber.properties
 # End of https://www.toptal.com/developers/gitignore/api/maven,intellij
 
 .idea
-
+debug.log
 TW3rdWeek.iml
