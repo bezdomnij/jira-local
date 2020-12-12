@@ -4,16 +4,19 @@ import com.codecool.util.WebDriverSingleton;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
+import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
 public class DashBoardPage {
     WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public DashBoardPage() {
-        PageFactory.initElements(driver, this);
+        PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
     @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
@@ -69,12 +72,19 @@ public class DashBoardPage {
         return viewProfilePage.getUserNameTitle();
     }
 
+
     public WebElement logout(){
-        userIcon.click();
-        logout.click();
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+        try {
+            wait.until(ExpectedConditions.visibilityOf(userIcon));
+            userIcon.click();
+            logout.click();
+        } catch (NoSuchElementException ne) {
+            System.out.println("not logged in?");
+        }
+
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
+
         }catch (TimeoutException e){
             return null;
         }
@@ -101,7 +111,7 @@ public class DashBoardPage {
         String url = String.format("https://jira.codecool.codecanvas.hu/projects/%s", urlEnds);
         driver.get(url);
 
-        WebDriverWait wait = new WebDriverWait(driver, 3);
+//        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
 
         String text = driver.findElement(By.xpath(locator)).getText();
@@ -137,7 +147,7 @@ public class DashBoardPage {
         driver.get(url);
         driver.findElement(By.id("opsbar-operations_more")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
-        WebDriverWait wait = new WebDriverWait(driver,4);
+//        WebDriverWait wait = new WebDriverWait(driver,4);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
         driver.findElement(By.id("delete-issue-submit")).click();
     }

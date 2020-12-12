@@ -1,76 +1,63 @@
-package com.codecool;
+package com.codecool;//enyem
+
+import com.codecool.pages.AlternateLogin;
+import com.codecool.pages.CreateIssuePage;
+import com.codecool.pages.DashBoardPage;
+import com.codecool.pages.IssuesPage;
+import com.codecool.pages.LoginPage;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 
 import com.codecool.pages.*;
-import org.junit.jupiter.api.Assertions;
+
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
+
+
+import static org.junit.jupiter.api.Assertions.*;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
+
+/**
+ * Unit test for simple App.
+ */
+
+
 public class AppTest {
-    LoginPage loginPage = new LoginPage();
-    DashBoardPage dashBoardPage =  new DashBoardPage();
+
+
+    static LoginPage loginPage = new LoginPage();
+    DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
-    CreateIssuePage createIssuePage = new CreateIssuePage();
     IssuesPage issuesPage = new IssuesPage();
+    CreateIssuePage createIssuePage = new CreateIssuePage();
 
 
-    @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) {
+    @BeforeAll
+    public static void login(){
         loginPage.loginSuccessful();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
     }
 
-//    @Test
-//    public void testCreateIssue() {
-//        loginPage.loginSuccessful();
-//        assertTrue(issuesPage.createIssue());
-//    }
+    //not working if I comment out loginPage.loginSuccessful(); from the code
 
     @Test
-    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectPassword");
-        assertNotNull(loginError);
-    }
-
-    @Test
-    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectUsername");
-        assertNotNull(loginError);
-    }
-
-    @Test
-    public void loginWrongPassword3Times() throws InterruptedException {
-        WebElement captcha = loginPage.loginWrongPassword3Times();
-        assertNotNull(captcha);
-    }
-
-    @ParameterizedTest
-    @CsvSource({"User 10"})
-    public void testAlternateLoginSuccessful(String userId) {
-        alternateLogin.loginSuccessfulAlternateLoginPage();
-        boolean isLogOutPresent = dashBoardPage.checkLogout();
-        String userName = dashBoardPage.checkUserName();
-        assertTrue(isLogOutPresent && userId.equals(userName));
-    }
-
-    @Test
-    public void testLogout(){
-        loginPage.loginSuccessful();
+    public void testLogout() {
+        //loginPage.loginSuccessful();
         WebElement logoutConfirmation = dashBoardPage.logout();
         Assertions.assertNotNull(logoutConfirmation);
     }
-
+    /*
     @ParameterizedTest
     @CsvSource({"TOUCAN projekt, TOUCAN",
                 "COALA Project, COALA",
@@ -88,8 +75,11 @@ public class AppTest {
         assertEquals("Main Testing Project", actualProject);
     }
 
-    @ParameterizedTest
-    @CsvSource({"TOUCAN, Task"})
+
+    /*@ParameterizedTest
+    @CsvSource({"TOUCAN, Task",
+            "COALA, Sub-task"})
+
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
@@ -97,12 +87,26 @@ public class AppTest {
         boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(result);
         assertTrue(resultActual);
-    }
+
+    }*/
+
+    /*@ParameterizedTest
+    @MethodSource("createStreamOfIssueType")
+    public void testCreateIssueWithIssueType(String project, String issueType) throws InterruptedException {
+        loginPage.loginSuccessful();
+        dashBoardPage.getCreateIssueButton().click();
+        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+        dashBoardPage.searchForIssueCreatedByMe(issueId);
+        //boolean resultActual = createIssuePage.compare(result, project);
+        dashBoardPage.deleteIssue(issueId);
+        assertTrue(resultActual);
+    }*/
+
 
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
-        loginPage.loginSuccessful();
+        //loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
         String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
@@ -112,8 +116,8 @@ public class AppTest {
 
 
     private static List<Arguments> createListOfIssueType() {
-        List<String> issueTypes = Arrays.asList(" Story", "Task", "Bug", "Sub-task");
-        List<String> projects = Arrays.asList("TOUCAN", "COALA", "JETI");
+        List<String> issueTypes = Arrays.asList("Story");
+        List<String> projects = Arrays.asList("TOUCAN");
         List<Arguments> argumentsList = new ArrayList<>();
 
         for (String project : projects) {
@@ -123,4 +127,5 @@ public class AppTest {
         }
         return argumentsList;
     }
+
 }
