@@ -11,6 +11,12 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage {
+    WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriverWait wait = new WebDriverWait(driver, 5);
+    LoginPage loginPage = new LoginPage();
+    private final IssuesPage issuesPage = new IssuesPage();
+    private DashBoardPage dashBoardPage =new DashBoardPage();
+
     //div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')];
     @FindBy(xpath = "//div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')]")
     private WebElement successMessage;
@@ -18,17 +24,9 @@ public class CreateIssuePage {
     @FindBy(xpath = "//input[@id='project-field']")
     private WebElement dropDown;
 
-    WebDriver driver = WebDriverSingleton.getInstance();
-    LoginPage loginPage = new LoginPage();
-    WebDriverWait wait = new WebDriverWait(driver, 5);
-
-    private DashBoardPage dashBoardPage =new DashBoardPage();
-
     public CreateIssuePage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
-
-//    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id = "project-field")
     private WebElement dropdown;
@@ -36,13 +34,12 @@ public class CreateIssuePage {
     @FindBy(id = "issuetype-field")
     private WebElement dropDownIssue;
 
-
     @FindBy(id = "summary")
     private WebElement summary;
 
-    private WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
+        Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
         dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
