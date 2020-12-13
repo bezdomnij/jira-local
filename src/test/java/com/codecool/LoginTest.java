@@ -22,13 +22,10 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 public class LoginTest {
-
-    LoginPage loginPage = new LoginPage();
-
+    private LoginPage loginPage = new LoginPage();
     private static final DashBoardPage dashBoardPage =  new DashBoardPage();
-
-    AlternateLogin alternateLogin = new AlternateLogin();
-    CreateIssuePage createIssuePage = new CreateIssuePage();
+    private AlternateLogin alternateLogin = new AlternateLogin();
+    private CreateIssuePage createIssuePage = new CreateIssuePage();
 
     @ParameterizedTest
     @CsvSource({"User 10"})
@@ -66,7 +63,6 @@ public class LoginTest {
         String userName = dashBoardPage.checkUserName();
         assertTrue(isLogOutPresent && userId.equals(userName));
     }
-
 
     @AfterAll
     public static void backToBase() {

@@ -15,7 +15,7 @@ public class CreateIssuePage {
     WebDriverWait wait = new WebDriverWait(driver, 5);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
-    private DashBoardPage dashBoardPage =new DashBoardPage();
+    private DashBoardPage dashBoardPage = new DashBoardPage();
 
     //div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')];
     @FindBy(xpath = "//div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')]")
@@ -37,42 +37,50 @@ public class CreateIssuePage {
     @FindBy(id = "summary")
     private WebElement summary;
 
+    @FindBy(xpath = "//a[@class=\"cancel\"]")
+    private WebElement cancel;
+
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
         dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
         dropdown.sendKeys(project);
-        dropdown.sendKeys(Keys.ENTER);
+        dropdown.sendKeys(Keys.TAB);
 
+//        cancel.click();
 
         try {
-            wait.until(ExpectedConditions.stalenessOf(dropDownIssue));
+            wait.until(ExpectedConditions.invisibilityOf(dropDownIssue));
         } catch (Exception e) {
             System.out.println("dropdown issue exception caught");
         }
         wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
-        dropDownIssue.sendKeys(issueType + Keys.ENTER);
-
-        /*try {
+        dropDownIssue.sendKeys(issueType + Keys.TAB);
+        try {
             wait.until(ExpectedConditions.stalenessOf(summary));
         } catch (Exception e) {
             System.out.println("summary exception caught");
         }
-        wait.until(ExpectedConditions.elementToBeClickable(summary));*/
+        wait.until(ExpectedConditions.visibilityOf(summary));
 
         // testing usability of other way to ignore StaleElementReferenceException
-        wait.ignoring(StaleElementReferenceException.class)
-                .until(ExpectedConditions.elementToBeClickable(summary));
-
+//        wait.ignoring(StaleElementReferenceException.class)
+//                .until(ExpectedConditions.elementToBeClickable(summary));
+        summary.click();
         summary.sendKeys(issueSummary);
+        summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
 
-
-        wait.until(ExpectedConditions.elementToBeClickable(successMessage));
+        try {
+            wait.until(ExpectedConditions.stalenessOf(successMessage));
+        } catch (Exception e) {
+            System.out.println("success message staleness");
+        }
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);
