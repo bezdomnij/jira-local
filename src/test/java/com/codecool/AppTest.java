@@ -1,4 +1,4 @@
-package com.codecool;//enyem
+package com.codecool;
 
 import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
@@ -7,9 +7,6 @@ import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.BeforeEach;
-
-import com.codecool.pages.*;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -18,21 +15,11 @@ import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-
-
-import static org.junit.jupiter.api.Assertions.*;
-
-
-/**
- * Unit test for simple App.
- */
-
 
 public class AppTest {
 
@@ -42,37 +29,31 @@ public class AppTest {
     IssuesPage issuesPage = new IssuesPage();
     CreateIssuePage createIssuePage = new CreateIssuePage();
 
-
     @BeforeAll
     public static void login(){
         loginPage.loginSuccessful();
     }
 
-    //not working if I comment out loginPage.loginSuccessful(); from the code
     @Test
     public void testLogout() {
-//        loginPage.loginSuccessful();
         WebElement logoutConfirmation = dashBoardPage.logout();
         Assertions.assertNotNull(logoutConfirmation);
     }
-    /*
+
     @ParameterizedTest
     @CsvSource({"TOUCAN projekt, TOUCAN",
                 "COALA Project, COALA",
                 "JETI Project, JETI"})
     public void testBrowseProject(String expected, String project){
-        loginPage.loginSuccessful();
         String projectName = dashBoardPage.browseProject(project);
         assertEquals(expected, projectName);
     }
 
     @Test
     public void searchProject() {
-        loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }*/
-
+    }
 
     /*@ParameterizedTest
     @CsvSource({"TOUCAN, Task",
@@ -84,7 +65,6 @@ public class AppTest {
         boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(result);
         assertTrue(resultActual);
-
     }*/
 
     /*@ParameterizedTest
@@ -115,7 +95,6 @@ public class AppTest {
         List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
         List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
         List<Arguments> argumentsList = new ArrayList<>();
-
         for (String project : projects) {
             for (String type : issueTypes) {
                 argumentsList.add(Arguments.of(project, type));

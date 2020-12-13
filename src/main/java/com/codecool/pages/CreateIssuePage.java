@@ -15,7 +15,7 @@ public class CreateIssuePage {
     WebDriverWait wait = new WebDriverWait(driver, 5);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
-    private DashBoardPage dashBoardPage =new DashBoardPage();
+    private DashBoardPage dashBoardPage = new DashBoardPage();
 
     //div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')];
     @FindBy(xpath = "//div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')]")
@@ -75,8 +75,12 @@ public class CreateIssuePage {
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
 
-
-        wait.until(ExpectedConditions.elementToBeClickable(successMessage));
+        try {
+            wait.until(ExpectedConditions.stalenessOf(successMessage));
+        } catch (Exception e) {
+            System.out.println("success message staleness");
+        }
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);
