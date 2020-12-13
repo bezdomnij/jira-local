@@ -113,7 +113,7 @@ public class AppTest {
 
     private static List<Arguments> createListOfIssueType() {
         List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
-        List<String> projects = Arrays.asList("COALA");
+        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
         List<Arguments> argumentsList = new ArrayList<>();
 
         for (String project : projects) {
