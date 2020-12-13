@@ -36,7 +36,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 public class AppTest {
 
-
     static LoginPage loginPage = new LoginPage();
     DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
@@ -52,7 +51,7 @@ public class AppTest {
     //not working if I comment out loginPage.loginSuccessful(); from the code
     @Test
     public void testLogout() {
-        //loginPage.loginSuccessful();
+//        loginPage.loginSuccessful();
         WebElement logoutConfirmation = dashBoardPage.logout();
         Assertions.assertNotNull(logoutConfirmation);
     }
@@ -72,13 +71,12 @@ public class AppTest {
         loginPage.loginSuccessful();
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }
+    }*/
 
 
     /*@ParameterizedTest
     @CsvSource({"TOUCAN, Task",
             "COALA, Sub-task"})
-
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         loginPage.loginSuccessful();
         dashBoardPage.getCreateIssueButton().click();
@@ -99,8 +97,8 @@ public class AppTest {
         //boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(issueId);
         assertTrue(resultActual);
-    }*/
-
+    }
+*/
 
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
@@ -115,8 +113,8 @@ public class AppTest {
 
 
     private static List<Arguments> createListOfIssueType() {
-        List<String> issueTypes = Arrays.asList("Story");
-        List<String> projects = Arrays.asList("TOUCAN");
+        List<String> issueTypes = Arrays.asList("Bug");
+        List<String> projects = Arrays.asList("JETI");
         List<Arguments> argumentsList = new ArrayList<>();
 
         for (String project : projects) {

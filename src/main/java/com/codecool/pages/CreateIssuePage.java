@@ -37,26 +37,29 @@ public class CreateIssuePage {
     @FindBy(id = "summary")
     private WebElement summary;
 
+    @FindBy(xpath = "//a[@class=\"cancel\"]")
+    private WebElement cancel;
+
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
         dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
         dropdown.sendKeys(project);
-        dropdown.sendKeys(Keys.ENTER);
+        dropdown.sendKeys(Keys.TAB);
 
+//        cancel.click();
 
         try {
-            wait.until(ExpectedConditions.stalenessOf(dropDownIssue));
+            wait.until(ExpectedConditions.invisibilityOf(dropDownIssue));
         } catch (Exception e) {
             System.out.println("dropdown issue exception caught");
         }
         wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
         dropDownIssue.sendKeys(issueType + Keys.ENTER);
-
         /*try {
             wait.until(ExpectedConditions.stalenessOf(summary));
         } catch (Exception e) {
@@ -69,6 +72,7 @@ public class CreateIssuePage {
                 .until(ExpectedConditions.elementToBeClickable(summary));
 
         summary.sendKeys(issueSummary);
+        summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
 
 
