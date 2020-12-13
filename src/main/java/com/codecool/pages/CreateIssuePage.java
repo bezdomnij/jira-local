@@ -59,18 +59,18 @@ public class CreateIssuePage {
         }
         wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
-        dropDownIssue.sendKeys(issueType + Keys.ENTER);
-        /*try {
+        dropDownIssue.sendKeys(issueType + Keys.TAB);
+        try {
             wait.until(ExpectedConditions.stalenessOf(summary));
         } catch (Exception e) {
             System.out.println("summary exception caught");
         }
-        wait.until(ExpectedConditions.elementToBeClickable(summary));*/
+        wait.until(ExpectedConditions.visibilityOf(summary));
 
         // testing usability of other way to ignore StaleElementReferenceException
-        wait.ignoring(StaleElementReferenceException.class)
-                .until(ExpectedConditions.elementToBeClickable(summary));
-
+//        wait.ignoring(StaleElementReferenceException.class)
+//                .until(ExpectedConditions.elementToBeClickable(summary));
+        summary.click();
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
