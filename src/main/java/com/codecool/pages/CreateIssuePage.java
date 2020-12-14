@@ -15,7 +15,7 @@ public class CreateIssuePage {
     WebDriverWait wait = new WebDriverWait(driver, 5);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
-    private DashBoardPage dashBoardPage = new DashBoardPage();
+    private DashBoardPage dashBoardPage =new DashBoardPage();
 
     //div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')];
     @FindBy(xpath = "//div[contains(@class, 'aui-message-success') and contains(@class, 'shadowed')]")
@@ -40,6 +40,9 @@ public class CreateIssuePage {
     @FindBy(xpath = "//a[@class=\"cancel\"]")
     private WebElement cancel;
 
+    @FindBy(xpath = "//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")
+    private WebElement popUpSuccessClose;
+
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
 //        Thread.sleep(5000);
@@ -53,7 +56,7 @@ public class CreateIssuePage {
 //        cancel.click();
 
         try {
-            wait.until(ExpectedConditions.invisibilityOf(dropDownIssue));
+            wait.until(ExpectedConditions.stalenessOf(dropDownIssue));
         } catch (Exception e) {
             System.out.println("dropdown issue exception caught");
         }
@@ -62,17 +65,16 @@ public class CreateIssuePage {
         dropDownIssue.sendKeys(issueType + Keys.TAB);
 
         /*try {
-
             wait.until(ExpectedConditions.stalenessOf(summary));
         } catch (Exception e) {
             System.out.println("summary exception caught");
         }
-        wait.until(ExpectedConditions.visibilityOf(summary));
+        wait.until(ExpectedConditions.elementToBeClickable(summary));*/
 
         // testing usability of other way to ignore StaleElementReferenceException
-//        wait.ignoring(StaleElementReferenceException.class)
-//                .until(ExpectedConditions.elementToBeClickable(summary));
-        summary.click();
+        wait.ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.elementToBeClickable(summary));
+
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
