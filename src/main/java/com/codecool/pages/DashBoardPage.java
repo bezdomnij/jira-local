@@ -52,6 +52,8 @@ public class DashBoardPage {
     @FindBy(id="searcher-query")
     private WebElement searchQuery;
 
+    @FindBy(xpath = "//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")
+    private WebElement popUpClose;
 
     public WebElement getCreateIssueButton() {
         return createIssue;
@@ -151,5 +153,7 @@ public class DashBoardPage {
 //        WebDriverWait wait = new WebDriverWait(driver,4);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
         driver.findElement(By.id("delete-issue-submit")).click();
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
+        driver.findElement(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")).click();
     }
 }
