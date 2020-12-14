@@ -77,10 +77,11 @@ public class DashBoardPage {
 
     public WebElement logout(){
         try {
-            wait.until(ExpectedConditions.visibilityOf(userIcon));
+//            wait.until(ExpectedConditions.visibilityOf(userIcon));
+            wait.until(ExpectedConditions.elementToBeClickable(userIcon));
             userIcon.click();
             logout.click();
-        } catch (NoSuchElementException ne) {
+        } catch (Exception ee) {
             System.out.println("not logged in?");
         }
 

@@ -5,6 +5,7 @@ import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -27,16 +28,12 @@ public class TestIssues {
     public static void login() {
         loginPage.loginSuccessful();
     }
-    
-//    @Test
-//    public void createIssue() {
-//        Assertions.assertTrue(true);
-//    }
 
     @ParameterizedTest
     @CsvSource({"TOUCAN, Task"})
     public void testCreateIssue(String project, String issueType) throws InterruptedException {
         dashBoardPage.getCreateIssueButton().click();
+
         String result = issuesPage.createIssue(project, issueType, "randomString");
         boolean resultActual = issuesPage.compare(result, project);
         dashBoardPage.deleteIssueByIssueId(result);
