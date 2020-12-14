@@ -31,31 +31,43 @@ public class IssuesPage {
     @FindBy(xpath = "//div[@class=\"aui-message aui-message-success success closeable shadowed aui-will-close\"]")
     private WebElement successMessage;
 
+    @FindBy(xpath = "//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")
+    private WebElement popUpMessageClose;
+
     public IssuesPage() {
         PageFactory.initElements(driver, this);
     }
 
     public String createIssue(String project, String issueType, String text) {
-        wait.until(ExpectedConditions.elementToBeClickable(createButton));
-        createButton.click();
 
         wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
         projectInputField.click(); // clear field
         projectInputField.sendKeys(project + Keys.ENTER);
 
+        try {
+            wait.until(ExpectedConditions.invisibilityOf(typeInputField));
+        } catch (Exception e) {
+            System.out.println("TypeInputField not invisible");
+        }
         wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
         typeInputField.click();
-        typeInputField.sendKeys(issueType + Keys.ENTER);
+        typeInputField.sendKeys(issueType + Keys.TAB);
 
         wait.until(ExpectedConditions.elementToBeClickable(summaryField));
         summaryField.click();
         summaryField.sendKeys(text + Keys.ENTER);
 
-        wait.until(ExpectedConditions.elementToBeClickable(successMessage));
-
+        try {
+            wait.until(ExpectedConditions.stalenessOf(successMessage));
+        } catch (Exception e) {
+            System.out.println("success message not stale");
+        }
+        wait.until(ExpectedConditions.visibilityOf(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);
+        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
+        popUpMessageClose.click();
 
         return id;
     }
@@ -64,6 +76,7 @@ public class IssuesPage {
         return resultArray[0].equals(project);
     }
     private String getCreatedIssueId(String text) {
+        System.out.println(text);
         String [] words = text.split(" ");
         return words[1];
     }

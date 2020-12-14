@@ -60,7 +60,9 @@ public class CreateIssuePage {
         wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
         dropDownIssue.sendKeys(issueType + Keys.TAB);
-        try {
+
+        /*try {
+
             wait.until(ExpectedConditions.stalenessOf(summary));
         } catch (Exception e) {
             System.out.println("summary exception caught");

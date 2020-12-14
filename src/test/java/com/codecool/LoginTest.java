@@ -4,22 +4,14 @@ import com.codecool.pages.AlternateLogin;
 import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.LoginPage;
-
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Test;
-
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
-import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest {
     private LoginPage loginPage = new LoginPage();

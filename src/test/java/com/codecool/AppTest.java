@@ -1,10 +1,6 @@
 package com.codecool;
 
-import com.codecool.pages.AlternateLogin;
-import com.codecool.pages.CreateIssuePage;
-import com.codecool.pages.DashBoardPage;
-import com.codecool.pages.IssuesPage;
-import com.codecool.pages.LoginPage;
+import com.codecool.pages.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -20,6 +16,8 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
@@ -77,8 +75,8 @@ public class AppTest {
         //boolean resultActual = createIssuePage.compare(result, project);
         dashBoardPage.deleteIssue(issueId);
         assertTrue(resultActual);
-    }
-*/
+
+    }*/
 
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
@@ -102,5 +100,4 @@ public class AppTest {
         }
         return argumentsList;
     }
-
 }
