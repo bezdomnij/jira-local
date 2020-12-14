@@ -45,7 +45,7 @@ public class CreateIssuePage {
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
         dropdown.sendKeys(project);
-        dropdown.sendKeys(Keys.ENTER);
+        dropdown.sendKeys(Keys.TAB);
 
 
         try {
@@ -55,7 +55,7 @@ public class CreateIssuePage {
         }
         wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
         dropDownIssue.click();
-        dropDownIssue.sendKeys(issueType + Keys.ENTER);
+        dropDownIssue.sendKeys(issueType + Keys.TAB);
 
         /*try {
             wait.until(ExpectedConditions.stalenessOf(summary));
