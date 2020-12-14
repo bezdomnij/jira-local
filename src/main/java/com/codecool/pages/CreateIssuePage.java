@@ -67,11 +67,11 @@ public class CreateIssuePage {
         } catch (Exception e) {
             System.out.println("summary exception caught");
         }
-        wait.until(ExpectedConditions.visibilityOf(summary));
+        wait.until(ExpectedConditions.visibilityOf(summary));*/
 
         // testing usability of other way to ignore StaleElementReferenceException
-//        wait.ignoring(StaleElementReferenceException.class)
-//                .until(ExpectedConditions.elementToBeClickable(summary));
+        wait.ignoring(StaleElementReferenceException.class)
+                .until(ExpectedConditions.elementToBeClickable(summary));
         summary.click();
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.TAB);
