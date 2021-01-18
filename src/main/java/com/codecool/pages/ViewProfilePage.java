@@ -20,4 +20,8 @@ public class ViewProfilePage {
     public String getUserNameTitle() {
         return userNameTitle.getText();
     }
+
+    public void setUserNameTitle(WebElement userNameTitle) {
+        this.userNameTitle = userNameTitle;
+    }
 }
