@@ -47,8 +47,8 @@ public class LoginPage {
         driver.manage().window().maximize();
         try {
             wait.until(ExpectedConditions.visibilityOf(username));
-            username.sendKeys(System.getenv("USERNAME"));
-            password.sendKeys(System.getenv("PASSWORD"));
+            username.sendKeys(System.getenv("JIRAUSERNAME"));
+            password.sendKeys(System.getenv("JIRAPASSWORD"));
           /*try {
             loginButton.click();
         }catch (Exception e){
@@ -66,10 +66,10 @@ public class LoginPage {
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
-            password.sendKeys(System.getenv("PASSWORD"));
+            password.sendKeys(System.getenv("JIRAPASSWORD"));
         } else {
             Thread.sleep(3000);
-            username.sendKeys(System.getenv("USERNAME"));
+            username.sendKeys(System.getenv("JIRAUSERNAME"));
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
