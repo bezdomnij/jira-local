@@ -50,9 +50,9 @@ public class IssuesPage {
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
         } catch (Exception e) {
-            System.out.println("TypeInputField not invisible");
+            System.out.println("Project ENTER utan - type input field visible volt");
         }
-
+//
         wait.until(ExpectedConditions.visibilityOf(typeInputField));
         typeInputField.click();
 //        clickOnTypeInputField();
@@ -60,15 +60,16 @@ public class IssuesPage {
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
         } catch (Exception e) {
-            System.out.println("TypeInputField not invisible");
+            System.out.println("TypeInputField visible volt meg egyszer");
         }
         System.out.println(issueType);
         typeInputField.sendKeys(issueType + Keys.TAB);
-
+//        if (!summaryField.isSelected()) summaryField.click();
         try {
             wait.until(ExpectedConditions.invisibilityOf(summaryField));
         } catch (TimeoutException e) {
             System.out.println("summaryField not invisible");
+            summaryField.click();
         }
 
         wait.until(ExpectedConditions.visibilityOf(summaryField));

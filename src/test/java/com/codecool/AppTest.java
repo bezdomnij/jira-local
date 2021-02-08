@@ -5,13 +5,13 @@ import com.codecool.util.WebDriverS;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-
-import org.junit.jupiter.api.Test;
+import org.testng.annotations.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
+import org.testng.annotations.BeforeSuite;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -29,7 +29,7 @@ public class AppTest {
     private IssuesPage issuesPage = new IssuesPage();
     private CreateIssuePage createIssuePage = new CreateIssuePage();
 
-    @BeforeAll
+    @BeforeSuite
     public static void login(){
         loginPage.loginSuccessful();
     }
