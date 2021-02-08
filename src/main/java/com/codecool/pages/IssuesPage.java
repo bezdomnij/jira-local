@@ -7,12 +7,19 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.util.concurrent.TimeUnit;
+
 public class IssuesPage {
     WebDriver driver = WebDriverS.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 3);
 
     @FindBy(xpath = "//a[@id=\"create_link\"]")
     private WebElement createButton;
+
+    public WebElement getCreateButton() {
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        return createButton;
+    }
 
     @FindBy(xpath = "//input[@id='project-field']")
     private WebElement projectInputField;
@@ -37,7 +44,8 @@ public class IssuesPage {
     public String createIssue(String project, String issueType, String text) {
         wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
         projectInputField.click(); // clear field (js clears it)
-        projectInputField.sendKeys(project + Keys.ENTER);
+        projectInputField.sendKeys(project);
+        projectInputField.sendKeys(Keys.ENTER);
 
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
@@ -45,9 +53,16 @@ public class IssuesPage {
             System.out.println("TypeInputField not invisible");
         }
 
-        wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
+        wait.until(ExpectedConditions.visibilityOf(typeInputField));
         typeInputField.click();
 //        clickOnTypeInputField();
+        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+        try {
+            wait.until(ExpectedConditions.invisibilityOf(typeInputField));
+        } catch (Exception e) {
+            System.out.println("TypeInputField not invisible");
+        }
+        System.out.println(issueType);
         typeInputField.sendKeys(issueType + Keys.TAB);
 
         try {

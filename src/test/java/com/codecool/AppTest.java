@@ -1,6 +1,8 @@
 package com.codecool;
 
 import com.codecool.pages.*;
+import com.codecool.util.WebDriverS;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -21,11 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
-    static LoginPage loginPage = new LoginPage();
-    DashBoardPage dashBoardPage = new DashBoardPage();
-    AlternateLogin alternateLogin = new AlternateLogin();
-    IssuesPage issuesPage = new IssuesPage();
-    CreateIssuePage createIssuePage = new CreateIssuePage();
+    private static LoginPage loginPage = new LoginPage();
+    private static DashBoardPage dashBoardPage = new DashBoardPage();
+    private AlternateLogin alternateLogin = new AlternateLogin();
+    private IssuesPage issuesPage = new IssuesPage();
+    private CreateIssuePage createIssuePage = new CreateIssuePage();
 
     @BeforeAll
     public static void login(){
@@ -83,7 +85,8 @@ public class AppTest {
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
 //        loginPage.loginSuccessful();
 //        dashBoardPage.getCreateIssueButton().click();
-        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+        issuesPage.getCreateButton().click();
+        String issueId = issuesPage.createIssue(project, issueType, "randomString");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         dashBoardPage.deleteIssueByIssueId(issueId);
         assertEquals(issueType, actualIssueType);
@@ -92,6 +95,7 @@ public class AppTest {
     private static List<Arguments> createListOfIssueType() {
         List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
         List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
+//        List<String> projects = Arrays.asList("JETI");
         List<Arguments> argumentsList = new ArrayList<>();
         for (String project : projects) {
             for (String type : issueTypes) {
@@ -99,5 +103,11 @@ public class AppTest {
             }
         }
         return argumentsList;
+    }
+
+    @AfterAll
+    static void endGame() {
+        dashBoardPage.logout();
+        WebDriverS.close();
     }
 }

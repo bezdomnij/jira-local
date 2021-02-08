@@ -64,7 +64,7 @@ public class TestIssues {
     }
 
     @AfterAll
-    static void endGame() {
+    static void tearDown() {
         dashBoardPage.logout();
         WebDriverS.close();
     }
