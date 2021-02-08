@@ -1,8 +1,6 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
+import com.codecool.util.WebDriverS;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -11,12 +9,9 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
-
 
 public class LoginPage {
-    WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriver driver = WebDriverS.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public LoginPage() {

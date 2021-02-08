@@ -1,6 +1,6 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
+import com.codecool.util.WebDriverS;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -11,7 +11,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage {
-    WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriver driver = WebDriverS.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();

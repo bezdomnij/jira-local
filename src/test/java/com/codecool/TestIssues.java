@@ -3,6 +3,7 @@ package com.codecool;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
+import com.codecool.util.WebDriverS;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -65,5 +66,6 @@ public class TestIssues {
     @AfterAll
     static void endGame() {
         dashBoardPage.logout();
+        WebDriverS.close();
     }
 }

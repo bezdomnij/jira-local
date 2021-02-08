@@ -5,10 +5,10 @@ import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
-public class WebDriverSingleton {
+public class WebDriverS {
     public static WebDriver instance = null;
 
-    private WebDriverSingleton() { }
+    private WebDriverS() { }
 
     public static WebDriver getInstance(){
         if (instance == null){
@@ -17,5 +17,9 @@ public class WebDriverSingleton {
             instance.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
         }
         return instance;
+    }
+
+    public static void close() {
+        instance.quit();
     }
 }

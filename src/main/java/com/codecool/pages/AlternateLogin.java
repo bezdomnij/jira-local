@@ -1,6 +1,6 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
+import com.codecool.util.WebDriverS;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -12,7 +12,7 @@ public class AlternateLogin {
 //        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
     }
 
-    WebDriver driver = WebDriverSingleton.getInstance();
+    WebDriver driver = WebDriverS.getInstance();
 
     @FindBy(id = "login-form-username")
     private WebElement username;
