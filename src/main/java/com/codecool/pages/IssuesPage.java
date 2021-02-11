@@ -46,51 +46,55 @@ public class IssuesPage {
         projectInputField.click(); // clear field (js clears it)
         projectInputField.sendKeys(project);
         projectInputField.sendKeys(Keys.ENTER);
-
+        //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+        // typeInputField part
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
         } catch (Exception e) {
-            System.out.println("Project ENTER utan - type input field visible volt");
+            System.out.println("Project ENTER utan - type input field visible volt"); //yes
         }
-//
+
         wait.until(ExpectedConditions.visibilityOf(typeInputField));
         typeInputField.click();
-//        clickOnTypeInputField();
-        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
+//        // innentol uj --------------------------------------
+//        driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
         } catch (Exception e) {
-            System.out.println("TypeInputField visible volt meg egyszer");
+            System.out.println("TypeInputField visible volt meg egyszer"); //yes
         }
-        System.out.println(issueType);
+        System.out.println(issueType);// yes, of course
+        //        above idaig uj ------------------------------
         typeInputField.sendKeys(issueType + Keys.TAB);
-//        if (!summaryField.isSelected()) summaryField.click();
+        //xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+        // next one is new ----------------------------
         try {
             wait.until(ExpectedConditions.invisibilityOf(summaryField));
         } catch (TimeoutException e) {
-            System.out.println("summaryField not invisible");
+            System.out.println("summaryField not invisible"); // yes
             summaryField.click();
         }
-
+        // above idaig uj ----------------------
         wait.until(ExpectedConditions.visibilityOf(summaryField));
         summaryField.click();
-//        clickOnSummaryField();
         summaryField.sendKeys(text + Keys.ENTER);
 
         try {
             wait.until(ExpectedConditions.stalenessOf(successMessage));
         } catch (TimeoutException e) {
-            System.out.println("success message not stale");
+            System.out.println("success message not stale"); // yes
         }
         wait.until(ExpectedConditions.visibilityOf(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
-        System.out.println(successMessage.getText());
+        System.out.println(successMessage.getText());// yes
         System.out.println(id);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
         popUpMessageClose.click();
 
         return id;
     }
+
     public void clickOnTypeInputField() {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript("window.scrollTo(0, 0)");
