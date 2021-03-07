@@ -4,15 +4,12 @@ import com.codecool.pages.*;
 import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
-
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 import org.openqa.selenium.WebElement;
-
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,11 +19,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
-    private static LoginPage loginPage = new LoginPage();
-    private static DashBoardPage dashBoardPage = new DashBoardPage();
-    AlternateLogin alternateLogin = new AlternateLogin();
-    IssuesPage issuesPage = new IssuesPage();
-    CreateIssuePage createIssuePage = new CreateIssuePage();
+    private static final LoginPage loginPage = new LoginPage();
+    private static final DashBoardPage dashBoardPage = new DashBoardPage();
+    private final CreateIssuePage createIssuePage = new CreateIssuePage();
 
     @BeforeAll
     public static void login(){
