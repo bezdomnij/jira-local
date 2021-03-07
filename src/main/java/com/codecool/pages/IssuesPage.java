@@ -47,7 +47,7 @@ public class IssuesPage {
         try {
             wait.until(ExpectedConditions.invisibilityOf(typeInputField));
         } catch (Exception e) {
-            System.out.println("TypeInputField not invisible");
+            System.out.println("TypeInputField not become invisible");
         }
         wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
         typeInputField.click();

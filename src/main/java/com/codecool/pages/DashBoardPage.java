@@ -157,4 +157,8 @@ public class DashBoardPage {
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
         driver.findElement(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")).click();
     }
+
+    public void quit() {
+        driver.quit();
+    }
 }
